@@ -54,19 +54,18 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
   };
 
   const validateAndContinue = () => {
-    if (!mostSelected || !leastSelected) {
-      setError('Selecione uma opção MAIS e uma opção MENOS');
+    if (!mostSelected && !leastSelected) {
+      setError('Selecione pelo menos uma opção MAIS ou MENOS');
       return;
     }
 
-    if (mostSelected === leastSelected) {
+    if (mostSelected && leastSelected && mostSelected === leastSelected) {
       setError('As opções MAIS e MENOS devem ser diferentes');
       return;
     }
 
     setIsProcessing(true);
     setBlockAnswer(blockNumber, mostSelected, leastSelected);
-    
     // Small delay for better UX
     setTimeout(() => {
       nextStep();
@@ -77,7 +76,7 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
   if (!block) return null;
 
   const progress = ((blockNumber - 1) / 20) * 100;
-  const isComplete = mostSelected && leastSelected && mostSelected !== leastSelected;
+  const isComplete = (mostSelected || leastSelected) && (!mostSelected || !leastSelected || mostSelected !== leastSelected);
   const canContinue = isComplete && !isProcessing;
 
   return (

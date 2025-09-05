@@ -39,16 +39,17 @@ export const useAnswersStore = create<AnswersState>()(
       clearAnswers: () => set({ answers: [] }),
       
       isBlockComplete: (blockId: number) => {
-        const answer = get().getBlockAnswer(blockId);
-        return !!(answer && answer.mostId && answer.leastId && answer.mostId !== answer.leastId);
+  const answer = get().getBlockAnswer(blockId);
+  return !!(answer && (answer.mostId || answer.leastId) && (!answer.mostId || !answer.leastId || answer.mostId !== answer.leastId));
       },
       
       getCompletedBlocksCount: () => {
-        const { answers } = get();
-        return answers.filter(a => a.mostId && a.leastId && a.mostId !== a.leastId).length;
+  const { answers } = get();
+  return answers.filter(a => (a.mostId || a.leastId) && (!a.mostId || !a.leastId || a.mostId !== a.leastId)).length;
       },
       
       isAllBlocksComplete: () => get().getCompletedBlocksCount() === 20
+  // Se o número de blocos mudar, ajuste o valor 20 conforme necessário
     }),
     {
       name: 'disc-answers-store'
