@@ -1,0 +1,54 @@
+// Archetype Colors
+$warrior-color: #E8481E;
+$king-color: #9A218C;
+$lover-color: #1479FF;
+$lover-secondary-color: #2AA7A2;
+$mage-color: #4F46E5;
+$mage-secondary-color: #475569;
+
+// UI Colors
+$background-dark: #0f172a;
+$background-card: #1e293b;
+$text-primary: #f1f5f9;
+$text-secondary: #cbd5e1;
+$text-muted: #64748b;
+$border-color: #334155;
+$success-color: #10b981;
+$warning-color: #f59e0b;
+$error-color: #ef4444;
+
+// Export as CSS custom properties for JavaScript access
+:root {
+  --warrior-color: #{$warrior-color};
+  --king-color: #{$king-color};
+  --lover-color: #{$lover-color};
+  --lover-secondary: #{$lover-secondary-color};
+  --mage-color: #{$mage-color};
+  --mage-secondary: #{$mage-secondary-color};
+  
+  --bg-dark: #{$background-dark};
+  --bg-card: #{$background-card};
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --text-muted: #{$text-muted};
+  --border-color: #{$border-color};
+  --success-color: #{$success-color};
+  --warning-color: #{$warning-color};
+  --error-color: #{$error-color};
+}
+
+// Utility classes
+.warrior { color: $warrior-color; }
+.king { color: $king-color; }
+.lover { color: $lover-color; }
+.mage { color: $mage-color; }
+
+.bg-warrior { background-color: $warrior-color; }
+.bg-king { background-color: $king-color; }
+.bg-lover { background-color: $lover-color; }
+.bg-mage { background-color: $mage-color; }
+
+.border-warrior { border-color: $warrior-color; }
+.border-king { border-color: $king-color; }
+.border-lover { border-color: $lover-color; }
+.border-mage { border-color: $mage-color; }
