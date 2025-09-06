@@ -91,6 +91,9 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
+  /* CORREÇÃO 1: Garantir altura fixa do viewport */
+  height: 100vh;
+  overflow: hidden;
 }
 
 body {
@@ -98,10 +101,9 @@ body {
   font-weight: var(--font-weight-normal);
   color: var(--color-text-primary);
   background-color: var(--color-black);
-  min-height: 100vh;
-  max-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
+  /* CORREÇÃO 1: Altura fixa e controle de overflow */
+  height: 100vh;
+  overflow: hidden;
 }
 
 /* ==========================================================================
@@ -161,15 +163,19 @@ a:focus {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 var(--space-md);
+  /* CORREÇÃO 1: Altura controlada para container */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .section {
-  min-height: 100vh;
-  max-height: 100vh;
+  /* CORREÇÃO 1: Altura fixa com scroll interno */
+  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--space-lg) 0;
+  padding: var(--space-lg);
   overflow-y: auto;
 }
 
@@ -183,6 +189,9 @@ a:focus {
   padding: var(--space-xl);
   box-shadow: var(--shadow-md);
   transition: all var(--transition-normal);
+  /* CORREÇÃO 1: Altura máxima para cards */
+  max-height: calc(100vh - 4rem);
+  overflow-y: auto;
 }
 
 .card:hover {
@@ -192,6 +201,8 @@ a:focus {
 
 .card--large {
   padding: var(--space-2xl);
+  /* CORREÇÃO 1: Altura máxima para cards grandes */
+  max-height: calc(100vh - 2rem);
 }
 
 .card--small {
@@ -327,6 +338,40 @@ a:focus {
   color: var(--color-error);
 }
 
+/* CORREÇÃO 3: Campos Select com fundo escuro */
+select,
+.form-select {
+  width: 100%;
+  padding: var(--space-md);
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+  background-color: var(--color-medium-gray);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFBF00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right var(--space-md) center;
+  background-size: 1rem;
+  padding-right: calc(var(--space-md) + 2rem);
+}
+
+select:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--color-yellow);
+  box-shadow: 0 0 0 3px rgba(255, 191, 0, 0.1);
+}
+
+select option,
+.form-select option {
+  background-color: var(--color-medium-gray);
+  color: var(--color-text-primary);
+  padding: var(--space-sm);
+}
 /* Checkbox */
 .checkbox {
   display: flex;
@@ -523,8 +568,12 @@ a:focus {
 
 .w-full { width: 100%; }
 .h-full { height: 100%; }
-.min-h-screen { min-height: 100vh; }
+/* CORREÇÃO 1: Classes de altura controlada */
+.h-screen { height: 100vh; }
 .max-h-screen { max-height: 100vh; }
+.overflow-hidden { overflow: hidden; }
+.overflow-y-auto { overflow-y: auto; }
+.overflow-x-hidden { overflow-x: hidden; }
 
 .p-sm { padding: var(--space-sm); }
 .p-md { padding: var(--space-md); }
@@ -574,6 +623,8 @@ a:focus {
   
   .card {
     padding: var(--space-2xl);
+    /* CORREÇÃO 1: Altura responsiva para cards */
+    max-height: calc(100vh - 3rem);
   }
   
   .btn {
@@ -610,6 +661,8 @@ a:focus {
   
   .card--large {
     padding: var(--space-3xl);
+    /* CORREÇÃO 1: Altura responsiva para cards grandes */
+    max-height: calc(100vh - 1.5rem);
   }
 }
 
@@ -747,6 +800,56 @@ a:focus {
   text-shadow: none !important;
 }
 
+/* CORREÇÃO 2: Remoção completa de cores azuis e roxas */
+/* Substituir todas as referências de azul por amarelo */
+.text-blue-400,
+.text-blue-500,
+.text-blue-600,
+.border-blue-500,
+.bg-blue-500,
+.bg-blue-900,
+.shadow-blue-500 {
+  color: var(--color-yellow) !important;
+  border-color: var(--color-yellow) !important;
+  background-color: var(--color-yellow) !important;
+  box-shadow: 0 0 10px rgba(255, 191, 0, 0.3) !important;
+}
+
+/* Substituir todas as referências de roxo por amarelo escuro */
+.text-purple-400,
+.text-purple-500,
+.text-purple-600,
+.border-purple-500,
+.bg-purple-500,
+.bg-purple-900,
+.shadow-purple-500 {
+  color: var(--color-yellow-dark) !important;
+  border-color: var(--color-yellow-dark) !important;
+  background-color: var(--color-yellow-dark) !important;
+  box-shadow: 0 0 10px rgba(230, 172, 0, 0.3) !important;
+}
+
+/* Substituir cores cyan por amarelo */
+.text-cyan-400,
+.text-cyan-500,
+.border-cyan-500,
+.bg-cyan-500,
+.shadow-cyan-500 {
+  color: var(--color-yellow) !important;
+  border-color: var(--color-yellow) !important;
+  background-color: var(--color-yellow) !important;
+  box-shadow: 0 0 10px rgba(255, 191, 0, 0.3) !important;
+}
+
+/* Substituir cores indigo por amarelo escuro */
+.text-indigo-500,
+.text-indigo-600,
+.border-indigo-500,
+.bg-indigo-500 {
+  color: var(--color-yellow-dark) !important;
+  border-color: var(--color-yellow-dark) !important;
+  background-color: var(--color-yellow-dark) !important;
+}
 /* Override Tailwind classes to match our theme */
 .bg-slate-900 { background-color: var(--color-black) !important; }
 .bg-slate-800 { background-color: var(--color-dark-gray) !important; }
@@ -756,15 +859,33 @@ a:focus {
 .text-slate-400 { color: var(--color-text-muted) !important; }
 .border-slate-600 { border-color: var(--color-border) !important; }
 
-/* Ensure 100vh constraint */
+/* CORREÇÃO 1: Controle de altura para aplicação */
 .App {
-  min-height: 100vh;
-  max-height: 100vh;
+  height: 100vh;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .App > * {
-  min-height: 100vh;
-  max-height: 100vh;
+  flex: 1;
+  height: 100%;
   overflow-y: auto;
+}
+
+/* CORREÇÃO 1: Wrapper para componentes principais */
+.wizard-wrapper {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.step-container {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

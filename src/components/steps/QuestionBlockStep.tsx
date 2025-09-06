@@ -40,7 +40,8 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
     setTimeout(() => {
       nextStep();
       setIsProcessing(false);
-    }, 300);
+            {/* CORREÇÃO 1: Card com altura máxima */}
+            <Card padding="lg" className="max-h-[calc(100vh-12rem)] overflow-y-auto">
   };
 
   if (!block) return null;
@@ -51,6 +52,8 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
 
   return (
     <div className="min-h-screen bg-slate-900 p-4">
+      {/* CORREÇÃO 1: Container com altura controlada */}
+      <div className="h-screen overflow-y-auto">
       <div className="max-w-2xl mx-auto">
         {/* Progress Header */}
         <motion.div
@@ -147,6 +150,7 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
           </Card>
         </motion.div>
       </div>
+      </div>
     </div>
   );
 };
@@ -171,7 +175,8 @@ const SingleOptionButton: React.FC<SingleOptionButtonProps> = ({
       whileTap={!disabled ? { scale: 0.99 } : undefined}
       className={`
         p-6 rounded-xl border transition-all duration-300 backdrop-blur-sm
-        ${selected ? 'bg-blue-900/30 border-blue-500/70 shadow-lg shadow-blue-500/20' : 'bg-slate-800/50 border-slate-600/50 hover:border-slate-500/70 hover:bg-slate-700/50'}
+        /* CORREÇÃO 2: Substituir cores azuis por amarelas */
+        ${selected ? 'bg-yellow-900/30 border-yellow-500/70 shadow-lg shadow-yellow-500/20' : 'bg-slate-800/50 border-slate-600/50 hover:border-slate-500/70 hover:bg-slate-700/50'}
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
       `}
       onClick={!disabled ? onSelect : undefined}

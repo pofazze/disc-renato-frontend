@@ -35,15 +35,16 @@ export const Input: React.FC<InputProps> = ({
             'w-full px-4 py-3 glass-dark backdrop-blur-sm border rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300',
             icon && 'pl-10',
             error 
-              ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/30 focus:shadow-lg focus:shadow-red-500/20' 
-              : 'border-slate-600/50 focus:border-blue-500/70 focus:ring-blue-500/30 focus:shadow-lg focus:shadow-blue-500/20 hover:border-slate-500/70',
+              /* CORREÇÃO 2 e 3: Remover cores azuis/roxas e ajustar contraste */
+              ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/30 focus:shadow-lg focus:shadow-red-500/20 bg-slate-800' 
+              : 'border-slate-600/50 focus:border-yellow-500/70 focus:ring-yellow-500/30 focus:shadow-lg focus:shadow-yellow-500/20 hover:border-slate-500/70 bg-slate-800',
             className
           )}
           {...props}
         />
         
-        {/* Focus glow effect */}
-        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100" />
+        {/* CORREÇÃO 2: Substituir gradiente azul/roxo por amarelo */}
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-yellow-500/10 via-yellow-600/10 to-yellow-500/10 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100" />
       </div>
       
       {error && (

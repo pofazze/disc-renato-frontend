@@ -19,17 +19,17 @@ export const Progress: React.FC<ProgressProps> = ({
   if (variant === 'futuristic') {
     return (
       <div className={`relative w-full h-4 glass-dark rounded-full overflow-hidden border border-slate-600/30 ${className}`}>
-        {/* Background glow */}
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 rounded-full" />
+        {/* CORREÇÃO 2: Background glow amarelo */}
+        <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/10 via-yellow-400/10 to-yellow-500/10 rounded-full" />
         
-        {/* Progress bar */}
+        {/* CORREÇÃO 2: Progress bar amarelo */}
         <motion.div
-          className="relative h-full bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 shadow-lg progress-glow"
+          className="relative h-full bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-500 shadow-lg progress-glow"
           initial={{ width: 0 }}
           animate={{ width: `${percentage}%` }}
           transition={{ duration: 0.8, ease: 'easeOut' }}
           style={{
-            boxShadow: '0 0 20px rgba(59, 130, 246, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+            boxShadow: '0 0 20px rgba(255, 191, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
           }}
         >
           {/* Animated shine effect */}
@@ -51,14 +51,15 @@ export const Progress: React.FC<ProgressProps> = ({
 
   // Default variant
   return (
+    /* CORREÇÃO 2: Cores amarelas para variant default */
     <div className={`w-full bg-slate-700/50 backdrop-blur-sm rounded-full h-3 overflow-hidden border border-slate-600/30 ${className}`}>
       <motion.div
-        className="h-full bg-gradient-to-r from-blue-500 via-cyan-500 to-purple-600 shadow-lg shadow-blue-500/30"
+        className="h-full bg-gradient-to-r from-yellow-500 via-yellow-400 to-yellow-600 shadow-lg shadow-yellow-500/30"
         initial={{ width: 0 }}
         animate={{ width: `${percentage}%` }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
         style={{
-          boxShadow: '0 0 20px rgba(59, 130, 246, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+          boxShadow: '0 0 20px rgba(255, 191, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
         }}
       />
     </div>
