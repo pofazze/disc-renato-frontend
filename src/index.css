@@ -869,8 +869,7 @@ select option,
 
 .App > * {
   flex: 1;
-  height: 100%;
-  overflow-y: auto;
+
 }
 
 /* CORREÇÃO 1: Wrapper para componentes principais */
