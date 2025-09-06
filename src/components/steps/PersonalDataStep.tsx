@@ -73,36 +73,14 @@ export const PersonalDataStep: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div 
-          className="absolute top-20 right-20 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl"
-          animate={{ 
-            scale: [1, 1.2, 1],
-            x: [0, 50, 0],
-            y: [0, -30, 0]
-          }}
-          transition={{ duration: 12, repeat: Infinity }}
-        />
-        <motion.div 
-          className="absolute bottom-20 left-20 w-64 h-64 bg-purple-500/5 rounded-full blur-3xl"
-          animate={{ 
-            scale: [1.2, 1, 1.2],
-            x: [0, -40, 0],
-            y: [0, 40, 0]
-          }}
-          transition={{ duration: 15, repeat: Infinity, delay: 3 }}
-        />
-      </div>
-      
+    <div className="step-content">
       <motion.div
         initial={{ opacity: 0, x: 30 }}
         animate={{ opacity: 1, x: 0 }}
         exit={{ opacity: 0, x: -30 }}
-        className="max-w-md w-full relative z-10"
+        className="max-w-md w-full"
       >
-        <Card variant="glow" padding="lg">
+        <Card variant="glow" padding="lg" className="max-h-screen-safe overflow-y-auto custom-scrollbar">
           {/* Header */}
           <div className="text-center mb-8">
             <motion.div 
@@ -115,13 +93,13 @@ export const PersonalDataStep: React.FC = () => {
                 animate={{ rotate: [0, 360] }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               >
-                <User className="w-10 h-10 text-blue-400 mr-3" />
+                <User className="w-10 h-10 text-primary-400 mr-3" />
               </motion.div>
-              <h1 className="text-2xl font-bold text-gradient font-['Orbitron']">
+              <h1 className="text-2xl font-bold text-gradient">
                 Dados Pessoais
               </h1>
             </motion.div>
-            <p className="text-slate-400 leading-relaxed">
+            <p className="text-gray-400 leading-relaxed">
               Precisamos de algumas informações para personalizar seus resultados
             </p>
           </div>
@@ -151,12 +129,12 @@ export const PersonalDataStep: React.FC = () => {
               transition={{ delay: 0.4 }}
             >
               <div className="space-y-2">
-                <label className="block text-sm font-medium text-slate-300">
+                <label className="block text-sm font-medium text-gray-300">
                   WhatsApp
                   <span className="text-red-400 ml-1">*</span>
                 </label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <PhoneInput
                     value={whatsapp}
                     onChange={(value) => handleFieldChange('whatsapp', value)}
@@ -190,12 +168,12 @@ export const PersonalDataStep: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 }}
-              className="space-y-4 p-6 glass-dark rounded-xl border border-slate-600/30"
+              className="space-y-4 p-6 bg-gray-800/50 rounded-xl border border-gray-600/30"
             >
               <div className="flex items-center space-x-3 mb-4">
                 <Shield className="w-6 h-6 text-green-400" />
-                <span className="text-lg font-semibold text-slate-300 font-['Orbitron']">Proteção de Dados</span>
-                <Lock className="w-4 h-4 text-slate-400" />
+                <span className="text-lg font-semibold text-gray-300">Proteção de Dados</span>
+                <Lock className="w-4 h-4 text-gray-400" />
               </div>
 
               <label className="flex items-start space-x-3 cursor-pointer group">
@@ -203,18 +181,18 @@ export const PersonalDataStep: React.FC = () => {
                   type="checkbox"
                   checked={consentGiven}
                   onChange={(e) => handleFieldChange('consentGiven', e.target.checked)}
-                  className="mt-1 w-5 h-5 text-blue-600 glass-dark border-slate-600 rounded focus:ring-blue-500 focus:ring-2 backdrop-blur-sm transition-all"
+                  className="custom-checkbox mt-1"
                 />
-                <div className="text-sm text-slate-300 leading-relaxed">
+                <div className="text-sm text-gray-300 leading-relaxed">
                   <p className="mb-3">
-                    <strong className="text-cyan-400">Confirmação de Consentimento:</strong>
+                    <strong className="text-primary-400">Confirmação de Consentimento:</strong>
                   </p>
                   <p className="mb-2">
                     Concordo com o tratamento dos meus dados pessoais conforme a{' '}
                     <button
                       type="button"
                       onClick={() => setShowPrivacyDetails(!showPrivacyDetails)}
-                      className="text-blue-400 hover:text-blue-300 underline hover:glow inline-flex items-center"
+                      className="text-primary-400 hover:text-primary-300 underline inline-flex items-center"
                     >
                       Política de Privacidade
                       {showPrivacyDetails ? <EyeOff className="w-3 h-3 ml-1" /> : <Eye className="w-3 h-3 ml-1" />}
@@ -232,7 +210,7 @@ export const PersonalDataStep: React.FC = () => {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="mt-4 p-4 bg-slate-800/50 rounded-lg border border-slate-700/50 text-xs text-slate-400 space-y-2"
+                  className="mt-4 p-4 bg-gray-900/50 rounded-lg border border-gray-700/50 text-xs text-gray-400 space-y-2"
                 >
                   <p><strong>• Coleta:</strong> Apenas dados fornecidos voluntariamente</p>
                   <p><strong>• Uso:</strong> Exclusivamente para gerar e enviar resultados</p>

@@ -19,32 +19,26 @@ export const Input: React.FC<InputProps> = ({
   return (
     <div className="space-y-2">
       {label && (
-        <label className="block text-sm font-medium text-slate-300">
+        <label className="block text-sm font-medium text-gray-300">
           {label}
           {props.required && <span className="text-red-400 ml-1">*</span>}
         </label>
       )}
       <div className="relative">
         {icon && (
-          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-slate-400">
+          <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400">
             {icon}
           </div>
         )}
         <input
           className={clsx(
-            'w-full px-4 py-3 glass-dark backdrop-blur-sm border rounded-xl text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent transition-all duration-300',
+            'custom-input',
             icon && 'pl-10',
-            error 
-              /* CORREÇÃO 2 e 3: Remover cores azuis/roxas e ajustar contraste */
-              ? 'border-red-500/50 focus:border-red-500 focus:ring-red-500/30 focus:shadow-lg focus:shadow-red-500/20 bg-slate-800' 
-              : 'border-slate-600/50 focus:border-yellow-500/70 focus:ring-yellow-500/30 focus:shadow-lg focus:shadow-yellow-500/20 hover:border-slate-500/70 bg-slate-800',
+            error && 'border-red-500 focus:border-red-500 focus:ring-red-500/20',
             className
           )}
           {...props}
         />
-        
-        {/* CORREÇÃO 2: Substituir gradiente azul/roxo por amarelo */}
-        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-yellow-500/10 via-yellow-600/10 to-yellow-500/10 opacity-0 transition-opacity duration-300 pointer-events-none focus-within:opacity-100" />
       </div>
       
       {error && (
@@ -54,7 +48,7 @@ export const Input: React.FC<InputProps> = ({
         </p>
       )}
       {helperText && !error && (
-        <p className="text-sm text-slate-500">{helperText}</p>
+        <p className="text-sm text-gray-500">{helperText}</p>
       )}
     </div>
   );

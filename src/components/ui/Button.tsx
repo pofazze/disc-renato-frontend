@@ -19,16 +19,14 @@ export const Button: React.FC<ButtonProps> = ({
   className,
   ...props
 }) => {
-  const baseClasses = 'inline-flex items-center justify-center font-medium rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden';
+  const baseClasses = 'inline-flex items-center justify-center font-medium rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-transparent disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden';
   
   const variants = {
-    /* CORREÇÃO 2: Remover cores azuis/roxas e usar apenas amarelo */
-    primary: 'bg-gradient-to-r from-yellow-600/90 via-yellow-500/90 to-yellow-600/90 hover:from-yellow-700/90 hover:via-yellow-600/90 hover:to-yellow-700/90 text-black focus:ring-yellow-500 shadow-lg shadow-yellow-600/25 backdrop-blur-sm border border-yellow-500/20 disabled:from-slate-600/50 disabled:to-slate-600/50 disabled:shadow-none btn-futuristic',
-    secondary: 'glass-dark hover:bg-slate-700/70 text-white focus:ring-slate-500 border border-slate-500/20 disabled:bg-slate-600/30 btn-futuristic',
-    outline: 'border border-slate-600/50 hover:glass-dark text-slate-300 focus:ring-slate-500 backdrop-blur-sm hover:border-slate-500/70 disabled:border-slate-700/30 disabled:text-slate-500 btn-futuristic',
-    ghost: 'hover:glass-dark text-slate-300 focus:ring-slate-500 backdrop-blur-sm disabled:text-slate-500 btn-futuristic',
-    /* CORREÇÃO 2: Substituir cores cyan/blue/purple por amarelo */
-    futuristic: 'bg-gradient-to-r from-yellow-500/20 via-yellow-400/20 to-yellow-500/20 hover:from-yellow-500/30 hover:via-yellow-400/30 hover:to-yellow-500/30 text-yellow-300 border border-yellow-500/30 hover:border-yellow-400/50 focus:ring-yellow-500 backdrop-blur-sm shadow-lg shadow-yellow-500/10 hover:shadow-yellow-500/20 btn-futuristic animate-pulse-glow'
+    primary: 'bg-primary-500 hover:bg-primary-600 text-black focus:ring-primary-500 shadow-lg shadow-primary-500/25 font-semibold btn-futuristic',
+    secondary: 'bg-gray-800 hover:bg-gray-700 text-white focus:ring-gray-500 border border-gray-600 btn-futuristic',
+    outline: 'border-2 border-gray-600 hover:bg-gray-800 text-gray-300 hover:text-white focus:ring-gray-500 backdrop-blur-sm btn-futuristic',
+    ghost: 'hover:bg-gray-800 text-gray-300 hover:text-white focus:ring-gray-500 backdrop-blur-sm btn-futuristic',
+    futuristic: 'bg-gradient-to-r from-primary-500/20 to-primary-400/20 hover:from-primary-500/30 hover:to-primary-400/30 text-primary-300 border border-primary-500/30 hover:border-primary-400/50 focus:ring-primary-500 backdrop-blur-sm shadow-lg shadow-primary-500/10 hover:shadow-primary-500/20 btn-futuristic'
   };
   
   const sizes = {
@@ -56,18 +54,8 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={disabled || loading}
       {...props}
     >
-      {/* Shimmer effect */}
-      {!disabled && !loading && (
-        <div className="absolute inset-0 -top-px bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:animate-shimmer" />
-      )}
-      
-      {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin spinner-glow" />}
+      {loading && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
       <span className="relative z-10">{children}</span>
-      
-      {/* CORREÇÃO 2: Glow effect amarelo para variant futuristic */}
-      {variant === 'futuristic' && !disabled && (
-        <div className="absolute inset-0 bg-gradient-to-r from-yellow-500/10 via-yellow-400/10 to-yellow-500/10 rounded-2xl blur-sm -z-10" />
-      )}
     </motion.button>
   );
 };

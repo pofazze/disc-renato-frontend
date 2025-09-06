@@ -14,40 +14,36 @@ export const LandingStep: React.FC = () => {
       name: 'Guerreiro',
       emoji: '⚔️',
       description: 'Orientado à ação e resultados',
-      color: 'text-orange-500',
-      bgGradient: 'from-orange-500/20 via-red-500/20 to-orange-600/20',
-      borderColor: 'border-orange-500/30',
-      glowColor: 'shadow-orange-500/20'
+      color: 'text-primary-500',
+      bgColor: 'bg-primary-500/10',
+      borderColor: 'border-primary-500/30'
     },
     {
       icon: Crown,
       name: 'Rei',
       emoji: '👑',
       description: 'Visionário e estratégico',
-      color: 'text-purple-500',
-      bgGradient: 'from-purple-500/20 via-pink-500/20 to-purple-600/20',
-      borderColor: 'border-purple-500/30',
-      glowColor: 'shadow-purple-500/20'
+      color: 'text-primary-600',
+      bgColor: 'bg-primary-600/10',
+      borderColor: 'border-primary-600/30'
     },
     {
       icon: Heart,
       name: 'Amante',
       emoji: '💙',
       description: 'Empático e colaborativo',
-      color: 'text-blue-500',
-      bgGradient: 'from-blue-500/20 via-cyan-500/20 to-blue-600/20',
-      borderColor: 'border-blue-500/30',
-      glowColor: 'shadow-blue-500/20'
+      color: 'text-primary-400',
+      bgColor: 'bg-primary-400/10',
+      borderColor: 'border-primary-400/30'
     },
     {
       icon: Sparkles,
       name: 'Mago',
       emoji: '🧙‍♂️',
       description: 'Analítico e precisão técnica',
-      color: 'text-indigo-500',
-      bgGradient: 'from-indigo-500/20 via-violet-500/20 to-indigo-600/20',
-      borderColor: 'border-indigo-500/30',
-      glowColor: 'shadow-indigo-500/20'
+      color: 'text-primary-700',
+      bgColor: 'bg-primary-700/10',
+      borderColor: 'border-primary-700/30'
     }
   ];
 
@@ -55,61 +51,33 @@ export const LandingStep: React.FC = () => {
     {
       icon: Target,
       text: '20 blocos de questões',
-      color: 'text-blue-400'
+      color: 'text-primary-400'
     },
     {
       icon: Brain,
       text: 'Análise comportamental',
-      color: 'text-purple-400'
+      color: 'text-primary-500'
     },
     {
       icon: Users,
       text: 'Relatório personalizado',
-      color: 'text-cyan-400'
+      color: 'text-primary-600'
     },
     {
       icon: Zap,
       text: '5-8 minutos',
-      color: 'text-orange-400'
+      color: 'text-primary-400'
     }
   ];
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
-      {/* Floating background elements */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div 
-          className="absolute top-20 left-20 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl"
-          animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.3, 0.6, 0.3]
-          }}
-          transition={{ duration: 8, repeat: Infinity }}
-        />
-        <motion.div 
-          className="absolute bottom-20 right-20 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl"
-          animate={{ 
-            scale: [1.2, 1, 1.2],
-            opacity: [0.4, 0.7, 0.4]
-          }}
-          transition={{ duration: 10, repeat: Infinity, delay: 2 }}
-        />
-        <motion.div 
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-cyan-500/3 to-purple-500/3 rounded-full blur-3xl"
-          animate={{ 
-            rotate: [0, 360],
-            scale: [1, 1.1, 1]
-          }}
-          transition={{ duration: 20, repeat: Infinity }}
-        />
-      </div>
-      
+    <div className="step-content">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="max-w-5xl w-full relative z-10"
+        className="max-w-5xl w-full"
       >
-        <Card variant="glow" padding="lg" className="text-center">
+        <Card variant="glow" padding="lg" className="text-center max-h-screen-safe overflow-y-auto custom-scrollbar">
           <motion.div
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
@@ -121,10 +89,10 @@ export const LandingStep: React.FC = () => {
                 animate={{ rotate: [0, 360] }}
                 transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
               >
-                <Rocket className="w-12 h-12 text-blue-400 mr-4" />
+                <Rocket className="w-12 h-12 text-primary-400 mr-4" />
               </motion.div>
               
-              <h1 className="text-4xl md:text-6xl font-bold text-gradient font-['Orbitron'] tracking-wide">
+              <h1 className="text-4xl md:text-6xl font-bold text-gradient tracking-wide">
                 Teste DISC Mitológico
               </h1>
               
@@ -132,14 +100,14 @@ export const LandingStep: React.FC = () => {
                 animate={{ rotate: [360, 0] }}
                 transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
               >
-                <Star className="w-12 h-12 text-purple-400 ml-4" />
+                <Star className="w-12 h-12 text-primary-400 ml-4" />
               </motion.div>
             </div>
 
             {/* Subtitle with enhanced styling */}
-            <p className="text-xl md:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed">
               Descubra seu arquétipo comportamental através de uma jornada 
-              de autoconhecimento baseada em <span className="text-cyan-400 font-semibold text-glow">mitologia</span> e <span className="text-purple-400 font-semibold text-glow">psicologia</span>.
+              de autoconhecimento baseada em <span className="text-primary-400 font-semibold text-glow">mitologia</span> e <span className="text-primary-500 font-semibold text-glow">psicologia</span>.
             </p>
           </motion.div>
 
@@ -157,10 +125,10 @@ export const LandingStep: React.FC = () => {
                   transition: { duration: 0.2 }
                 }}
                 className={`
-                  p-6 glass-card squircle cursor-pointer group
-                  bg-gradient-to-br ${archetype.bgGradient} 
+                  p-6 glass-card cursor-pointer group
+                  ${archetype.bgColor}
                   border ${archetype.borderColor} 
-                  shadow-lg hover:shadow-xl ${archetype.glowColor}
+                  shadow-lg hover:shadow-xl hover:shadow-primary-500/20
                   transition-all duration-300
                 `}
               >
@@ -174,11 +142,11 @@ export const LandingStep: React.FC = () => {
                 
                 <archetype.icon className={`w-8 h-8 ${archetype.color} mx-auto mb-3 group-hover:animate-pulse`} />
                 
-                <h3 className={`font-bold text-lg ${archetype.color} mb-2 font-['Orbitron']`}>
+                <h3 className={`font-bold text-lg ${archetype.color} mb-2`}>
                   {archetype.name}
                 </h3>
                 
-                <p className="text-sm text-slate-400 leading-relaxed">
+                <p className="text-sm text-gray-400 leading-relaxed">
                   {archetype.description}
                 </p>
               </motion.div>
@@ -199,10 +167,10 @@ export const LandingStep: React.FC = () => {
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.8 + index * 0.1 }}
-                  className="flex flex-col items-center space-y-2 p-4 glass-dark rounded-xl border border-slate-600/30"
+                  className="flex flex-col items-center space-y-2 p-4 bg-gray-800/50 rounded-xl border border-gray-600/30"
                 >
                   <feature.icon className={`w-6 h-6 ${feature.color}`} />
-                  <span className="text-sm text-slate-300 text-center font-medium">
+                  <span className="text-sm text-gray-300 text-center font-medium">
                     {feature.text}
                   </span>
                 </motion.div>
@@ -215,7 +183,7 @@ export const LandingStep: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1 }}
-                className="flex items-center justify-center space-x-2 text-slate-400 mb-6"
+                className="flex items-center justify-center space-x-2 text-gray-400 mb-6"
               >
                 <Shield className="w-5 h-5 text-green-400" />
                 <span className="text-sm">100% Gratuito • Resultados Instantâneos • Dados Protegidos</span>
@@ -230,7 +198,7 @@ export const LandingStep: React.FC = () => {
                   variant="futuristic"
                   size="lg"
                   onClick={nextStep}
-                  className="px-12 py-4 text-lg font-bold shadow-2xl shadow-cyan-600/30 hover:shadow-cyan-600/50 font-['Orbitron']"
+                  className="px-12 py-4 text-lg font-bold shadow-2xl shadow-primary-500/30 hover:shadow-primary-500/50"
                 >
                   <Rocket className="mr-3 w-6 h-6" />
                   Iniciar Jornada

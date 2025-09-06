@@ -50,10 +50,8 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
   const canContinue = isComplete && !isProcessing;
 
   return (
-    <div className="min-h-screen bg-slate-900 p-4">
-      {/* CORREÇÃO 1: Container com altura controlada */}
-      <div className="h-screen overflow-y-auto">
-      <div className="max-w-2xl mx-auto">
+    <div className="step-content">
+      <div className="max-w-2xl w-full">
         {/* Progress Header */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -61,14 +59,21 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
           className="mb-8"
         >
           <div className="flex items-center justify-between mb-4">
-            <span className="text-slate-400 font-medium">
+            <span className="text-gray-400 font-medium">
               Pergunta {blockNumber} de 20
             </span>
-            <span className="text-slate-400 font-medium">
+            <span className="text-gray-400 font-medium">
               {Math.round(progress)}%
             </span>
           </div>
-          <Progress value={progress} />
+          <div className="custom-progress">
+            <motion.div 
+              className="custom-progress-bar"
+              initial={{ width: 0 }}
+              animate={{ width: `${progress}%` }}
+              transition={{ duration: 0.5 }}
+            />
+          </div>
         </motion.div>
 
         {/* Question Card */}
@@ -77,13 +82,12 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -30 }}
         >
-          {/* CORREÇÃO 1: Card com altura máxima */}
-          <Card padding="lg" className="max-h-[calc(100vh-12rem)] overflow-y-auto">
+          <Card padding="lg" className="max-h-screen-safe overflow-y-auto custom-scrollbar">
             <div className="mb-8">
-              <h1 className="text-2xl font-bold text-slate-100 mb-4">
+              <h1 className="text-2xl font-bold text-white mb-4">
                 Bloco {blockNumber}
               </h1>
-              <p className="text-slate-300 mb-6 leading-relaxed">
+              <p className="text-gray-300 mb-6 leading-relaxed">
                 Selecione a alternativa que melhor representa você neste bloco:
               </p>
             </div>
@@ -150,7 +154,6 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
           </Card>
         </motion.div>
       </div>
-      </div>
     </div>
   );
 };
@@ -175,13 +178,12 @@ const SingleOptionButton: React.FC<SingleOptionButtonProps> = ({
       whileTap={!disabled ? { scale: 0.99 } : undefined}
       className={`
         p-6 rounded-xl border transition-all duration-300 backdrop-blur-sm
-        /* CORREÇÃO 2: Substituir cores azuis por amarelas */
-        ${selected ? 'bg-yellow-900/30 border-yellow-500/70 shadow-lg shadow-yellow-500/20' : 'bg-slate-800/50 border-slate-600/50 hover:border-slate-500/70 hover:bg-slate-700/50'}
+        ${selected ? 'bg-primary-900/30 border-primary-500/70 shadow-lg shadow-primary-500/20' : 'bg-gray-800/50 border-gray-600/50 hover:border-gray-500/70 hover:bg-gray-700/50'}
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
       `}
       onClick={!disabled ? onSelect : undefined}
     >
-      <p className="text-slate-100 mb-4 font-medium leading-relaxed">{option.text}</p>
+      <p className="text-white mb-4 font-medium leading-relaxed">{option.text}</p>
     </motion.div>
   );
 };

@@ -42,8 +42,10 @@ export const Wizard: React.FC = () => {
   };
 
   return (
-    <AnimatePresence mode="wait" initial={false}>
-      {renderStep()}
-    </AnimatePresence>
+    <div className="step-wrapper">
+      <AnimatePresence mode="wait" initial={false}>
+        {renderStep()}
+      </AnimatePresence>
+    </div>
   );
 };

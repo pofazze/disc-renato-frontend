@@ -2,13 +2,12 @@ import React from 'react';
 import { Wizard } from './components/Wizard';
 import { Toast } from './components/ui/Toast';
 import { useToast } from './hooks/useToast';
-import './styles/colors.scss';
 
 function App() {
   const { toast, hideToast } = useToast();
 
   return (
-    <div className="App">
+    <div className="h-screen-safe overflow-hidden bg-dark-950 text-white">
       <Wizard />
       <Toast
         message={toast.message}
