@@ -18,8 +18,7 @@ export interface QuestionBlock {
 
 export interface BlockAnswer {
   blockId: number;
-  mostId: string;
-  leastId: string;
+  selectedId: string;
 }
 
 export interface ArchetypeScore {
