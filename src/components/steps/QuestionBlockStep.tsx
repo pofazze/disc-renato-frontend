@@ -40,8 +40,7 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
     setTimeout(() => {
       nextStep();
       setIsProcessing(false);
-            {/* CORREÇÃO 1: Card com altura máxima */}
-            <Card padding="lg" className="max-h-[calc(100vh-12rem)] overflow-y-auto">
+    }, 500);
   };
 
   if (!block) return null;
@@ -78,7 +77,8 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -30 }}
         >
-          <Card padding="lg">
+          {/* CORREÇÃO 1: Card com altura máxima */}
+          <Card padding="lg" className="max-h-[calc(100vh-12rem)] overflow-y-auto">
             <div className="mb-8">
               <h1 className="text-2xl font-bold text-slate-100 mb-4">
                 Bloco {blockNumber}
