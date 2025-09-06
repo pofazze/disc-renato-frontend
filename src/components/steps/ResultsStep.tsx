@@ -5,9 +5,23 @@ import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { useResultsStore } from '../../store/resultsStore';
 import { useRespondentStore } from '../../store/respondentStore';
+import { useAnswersStore } from '../../store/answersStore';
+import { useWizardStore } from '../../store/wizardStore';
 import { Archetype } from '../../types';
 
 export const ResultsStep: React.FC = () => {
+  const { clearResults } = useResultsStore();
+  const { clearAnswers } = useAnswersStore();
+  const { clearRespondent } = useRespondentStore();
+  const { resetWizard } = useWizardStore();
+
+  const handleReset = () => {
+    clearResults();
+    clearAnswers();
+    clearRespondent();
+    resetWizard();
+    window.location.reload(); // Garante que tudo volte ao início
+  };
   const { results } = useResultsStore();
   const { name } = useRespondentStore();
   const [shareLoading, setShareLoading] = useState(false);
@@ -231,7 +245,6 @@ export const ResultsStep: React.FC = () => {
               <Share2 className="w-4 h-4 mr-2" />
               Compartilhar
             </Button>
-            
             <Button
               variant="outline"
               onClick={() => window.print()}
@@ -239,6 +252,13 @@ export const ResultsStep: React.FC = () => {
             >
               <Download className="w-4 h-4 mr-2" />
               Baixar PDF
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleReset}
+              className="px-6"
+            >
+              Resetar e começar do início
             </Button>
           </motion.div>
 

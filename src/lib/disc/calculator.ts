@@ -17,14 +17,7 @@ export class DISCCalculator {
     };
 
     // Initialize counts
-    const mostCounts = {
-      warrior: 0,
-      king: 0,
-      lover: 0,
-      mage: 0
-    };
-
-    const leastCounts = {
+    const selectedCounts = {
       warrior: 0,
       king: 0,
       lover: 0,
@@ -36,17 +29,10 @@ export class DISCCalculator {
       const block = questionBlocks.find(b => b.id === answer.blockId);
       if (!block) return;
 
-      const mostOption = block.options.find(opt => opt.id === answer.mostId);
-      const leastOption = block.options.find(opt => opt.id === answer.leastId);
-
-      if (mostOption) {
-        rawScores[mostOption.archetype] += 1;
-        mostCounts[mostOption.archetype] += 1;
-      }
-
-      if (leastOption) {
-        rawScores[leastOption.archetype] -= 1;
-        leastCounts[leastOption.archetype] += 1;
+      const selectedOption = block.options.find(opt => opt.id === answer.selectedId);
+      if (selectedOption) {
+        rawScores[selectedOption.archetype] += 1;
+        selectedCounts[selectedOption.archetype] += 1;
       }
     });
 
@@ -58,26 +44,26 @@ export class DISCCalculator {
       warrior: {
         raw: rawScores.warrior,
         percentage: percentageScores.warrior,
-        mostCount: mostCounts.warrior,
-        leastCount: leastCounts.warrior
+        mostCount: selectedCounts.warrior,
+        leastCount: 0
       },
       king: {
         raw: rawScores.king,
         percentage: percentageScores.king,
-        mostCount: mostCounts.king,
-        leastCount: leastCounts.king
+        mostCount: selectedCounts.king,
+        leastCount: 0
       },
       lover: {
         raw: rawScores.lover,
         percentage: percentageScores.lover,
-        mostCount: mostCounts.lover,
-        leastCount: leastCounts.lover
+        mostCount: selectedCounts.lover,
+        leastCount: 0
       },
       mage: {
         raw: rawScores.mage,
         percentage: percentageScores.mage,
-        mostCount: mostCounts.mage,
-        leastCount: leastCounts.mage
+        mostCount: selectedCounts.mage,
+        leastCount: 0
       }
     };
 

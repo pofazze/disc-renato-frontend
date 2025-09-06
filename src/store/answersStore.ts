@@ -4,9 +4,7 @@ import { BlockAnswer } from '../types';
 
 interface AnswersState {
   answers: BlockAnswer[];
-  
-  // Actions
-  setBlockAnswer: (blockId: number, mostId: string, leastId: string) => void;
+  setBlockAnswer: (blockId: number, selectedId: string) => void;
   getBlockAnswer: (blockId: number) => BlockAnswer | undefined;
   clearAnswers: () => void;
   isBlockComplete: (blockId: number) => boolean;
@@ -19,11 +17,10 @@ export const useAnswersStore = create<AnswersState>()(
     (set, get) => ({
       answers: [],
       
-      setBlockAnswer: (blockId: number, mostId: string, leastId: string) =>
+      setBlockAnswer: (blockId: number, selectedId: string) =>
         set((state) => {
           const existingIndex = state.answers.findIndex(a => a.blockId === blockId);
-          const newAnswer: BlockAnswer = { blockId, mostId, leastId };
-          
+          const newAnswer: BlockAnswer = { blockId, selectedId };
           if (existingIndex >= 0) {
             const newAnswers = [...state.answers];
             newAnswers[existingIndex] = newAnswer;
@@ -32,24 +29,23 @@ export const useAnswersStore = create<AnswersState>()(
             return { answers: [...state.answers, newAnswer] };
           }
         }),
-      
+
       getBlockAnswer: (blockId: number) => 
         get().answers.find(a => a.blockId === blockId),
-      
+
       clearAnswers: () => set({ answers: [] }),
-      
+
       isBlockComplete: (blockId: number) => {
-  const answer = get().getBlockAnswer(blockId);
-  return !!(answer && (answer.mostId || answer.leastId) && (!answer.mostId || !answer.leastId || answer.mostId !== answer.leastId));
+        const answer = get().getBlockAnswer(blockId);
+        return !!(answer && answer.selectedId);
       },
-      
+
       getCompletedBlocksCount: () => {
-  const { answers } = get();
-  return answers.filter(a => (a.mostId || a.leastId) && (!a.mostId || !a.leastId || a.mostId !== a.leastId)).length;
+        const { answers } = get();
+        return answers.filter(a => a.selectedId).length;
       },
-      
+
       isAllBlocksComplete: () => get().getCompletedBlocksCount() === 20
-  // Se o número de blocos mudar, ajuste o valor 20 conforme necessário
     }),
     {
       name: 'disc-answers-store'

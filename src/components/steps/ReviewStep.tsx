@@ -44,7 +44,7 @@ export const ReviewStep: React.FC = () => {
     }
   };
 
-  const completedBlocks = answers.filter(a => a.mostId && a.leastId && a.mostId !== a.leastId).length;
+  const completedBlocks = answers.filter(a => a.selectedId).length;
 
   return (
     <div className="min-h-screen bg-slate-900 p-4">
@@ -118,9 +118,7 @@ export const ReviewStep: React.FC = () => {
                   {answers.map(answer => (
                     <div key={answer.blockId} className="flex justify-between">
                       <span>Bloco {answer.blockId}:</span>
-                      <span>
-                        + {answer.mostId} / - {answer.leastId}
-                      </span>
+                      <span>{answer.selectedId}</span>
                     </div>
                   ))}
                 </motion.div>

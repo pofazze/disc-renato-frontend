@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, ArrowRight, CheckCircle2, XCircle, Plus, Minus } from 'lucide-react';
+import { ArrowLeft, ArrowRight, CheckCircle2, XCircle } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Progress } from '../ui/Progress';
@@ -16,57 +16,27 @@ interface QuestionBlockStepProps {
 export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumber }) => {
   const { nextStep, previousStep } = useWizardStore();
   const { setBlockAnswer, getBlockAnswer } = useAnswersStore();
-  
+
   const block = questionBlocks.find(b => b.id === blockNumber);
   const existingAnswer = getBlockAnswer(blockNumber);
-  
-  const [mostSelected, setMostSelected] = useState<string>(existingAnswer?.mostId || '');
-  const [leastSelected, setLeastSelected] = useState<string>(existingAnswer?.leastId || '');
+
+  // Nova lógica: apenas uma seleção por bloco
+  const [selectedId, setSelectedId] = useState<string>(existingAnswer?.selectedId || '');
   const [error, setError] = useState<string>('');
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const handleOptionSelect = (optionId: string, type: 'most' | 'least') => {
+  const handleOptionSelect = (optionId: string) => {
     setError('');
-    
-    if (type === 'most') {
-      if (mostSelected === optionId) {
-        // Deselect if clicking the same option
-        setMostSelected('');
-      } else {
-        setMostSelected(optionId);
-        // If this option was selected as least, clear it
-        if (leastSelected === optionId) {
-          setLeastSelected('');
-        }
-      }
-    } else {
-      if (leastSelected === optionId) {
-        // Deselect if clicking the same option
-        setLeastSelected('');
-      } else {
-        setLeastSelected(optionId);
-        // If this option was selected as most, clear it
-        if (mostSelected === optionId) {
-          setMostSelected('');
-        }
-      }
-    }
+    setSelectedId(selectedId === optionId ? '' : optionId);
   };
 
   const validateAndContinue = () => {
-    if (!mostSelected && !leastSelected) {
-      setError('Selecione pelo menos uma opção MAIS ou MENOS');
+    if (!selectedId) {
+      setError('Selecione uma opção para continuar');
       return;
     }
-
-    if (mostSelected && leastSelected && mostSelected === leastSelected) {
-      setError('As opções MAIS e MENOS devem ser diferentes');
-      return;
-    }
-
     setIsProcessing(true);
-    setBlockAnswer(blockNumber, mostSelected, leastSelected);
-    // Small delay for better UX
+    setBlockAnswer(blockNumber, selectedId);
     setTimeout(() => {
       nextStep();
       setIsProcessing(false);
@@ -76,7 +46,7 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
   if (!block) return null;
 
   const progress = ((blockNumber - 1) / 20) * 100;
-  const isComplete = (mostSelected || leastSelected) && (!mostSelected || !leastSelected || mostSelected !== leastSelected);
+  const isComplete = !!selectedId;
   const canContinue = isComplete && !isProcessing;
 
   return (
@@ -111,20 +81,17 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
                 Bloco {blockNumber}
               </h1>
               <p className="text-slate-300 mb-6 leading-relaxed">
-                Selecione a característica que <strong className="text-green-400">MAIS</strong> se identifica com você 
-                e a que <strong className="text-red-400">MENOS</strong> se identifica com você:
+                Selecione a alternativa que melhor representa você neste bloco:
               </p>
             </div>
 
             <div className="space-y-4">
               {block.options.map((option) => (
-                <OptionButton
+                <SingleOptionButton
                   key={option.id}
                   option={option}
-                  mostSelected={mostSelected === option.id}
-                  leastSelected={leastSelected === option.id}
-                  onSelectMost={() => handleOptionSelect(option.id, 'most')}
-                  onSelectLeast={() => handleOptionSelect(option.id, 'least')}
+                  selected={selectedId === option.id}
+                  onSelect={() => handleOptionSelect(option.id)}
                   disabled={isProcessing}
                 />
               ))}
@@ -152,7 +119,7 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
                 <div className="flex items-center justify-center space-x-3">
                   <CheckCircle2 className="w-5 h-5 text-green-400" />
                   <p className="text-green-300 font-medium">
-                    Respostas válidas! Pronto para continuar.
+                    Resposta válida! Pronto para continuar.
                   </p>
                 </div>
               </motion.div>
@@ -184,70 +151,32 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
   );
 };
 
-interface OptionButtonProps {
+// Novo botão para seleção única
+interface SingleOptionButtonProps {
   option: QuestionOption;
-  mostSelected: boolean;
-  leastSelected: boolean;
-  onSelectMost: () => void;
-  onSelectLeast: () => void;
+  selected: boolean;
+  onSelect: () => void;
   disabled: boolean;
 }
 
-const OptionButton: React.FC<OptionButtonProps> = ({
+const SingleOptionButton: React.FC<SingleOptionButtonProps> = ({
   option,
-  mostSelected,
-  leastSelected,
-  onSelectMost,
-  onSelectLeast,
+  selected,
+  onSelect,
   disabled
 }) => {
-  const isSelected = mostSelected || leastSelected;
-  
   return (
     <motion.div
       whileHover={!disabled ? { scale: 1.01 } : undefined}
       whileTap={!disabled ? { scale: 0.99 } : undefined}
       className={`
         p-6 rounded-xl border transition-all duration-300 backdrop-blur-sm
-        ${mostSelected ? 'bg-green-900/30 border-green-500/70 shadow-lg shadow-green-500/20' : 
-          leastSelected ? 'bg-red-900/30 border-red-500/70 shadow-lg shadow-red-500/20' : 
-          'bg-slate-800/50 border-slate-600/50 hover:border-slate-500/70 hover:bg-slate-700/50'}
+        ${selected ? 'bg-blue-900/30 border-blue-500/70 shadow-lg shadow-blue-500/20' : 'bg-slate-800/50 border-slate-600/50 hover:border-slate-500/70 hover:bg-slate-700/50'}
         ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
       `}
+      onClick={!disabled ? onSelect : undefined}
     >
       <p className="text-slate-100 mb-4 font-medium leading-relaxed">{option.text}</p>
-      
-      <div className="flex gap-3">
-        <button
-          onClick={onSelectMost}
-          disabled={disabled}
-          className={`
-            px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 backdrop-blur-sm flex items-center space-x-2
-            ${mostSelected 
-              ? 'bg-green-600/90 text-white shadow-lg shadow-green-600/30 border border-green-500/50' 
-              : 'bg-slate-600/70 text-slate-300 hover:bg-green-600/80 hover:text-white hover:shadow-lg hover:shadow-green-600/20 border border-slate-500/30'}
-            disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-slate-600/70
-          `}
-        >
-          <Plus className="w-3 h-3" />
-          <span>MAIS</span>
-        </button>
-        
-        <button
-          onClick={onSelectLeast}
-          disabled={disabled}
-          className={`
-            px-4 py-2 rounded-lg text-sm font-semibold transition-all duration-300 backdrop-blur-sm flex items-center space-x-2
-            ${leastSelected 
-              ? 'bg-red-600/90 text-white shadow-lg shadow-red-600/30 border border-red-500/50' 
-              : 'bg-slate-600/70 text-slate-300 hover:bg-red-600/80 hover:text-white hover:shadow-lg hover:shadow-red-600/20 border border-slate-500/30'}
-            disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-slate-600/70
-          `}
-        >
-          <Minus className="w-3 h-3" />
-          <span>MENOS</span>
-        </button>
-      </div>
     </motion.div>
   );
 };
