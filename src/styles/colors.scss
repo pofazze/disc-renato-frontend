@@ -1,43 +1,99 @@
-// Archetype Colors
-$warrior-color: #E8481E;
-$king-color: #9A218C;
-$lover-color: #1479FF;
-$lover-secondary-color: #2AA7A2;
-$mage-color: #4F46E5;
-$mage-secondary-color: #475569;
+// ==========================================================================
+// DISC Mythological Test - Color System
+// Professional Dark Theme with Yellow Accents
+// ==========================================================================
 
-// UI Colors
-$background-dark: #0f172a;
-$background-card: #1e293b;
-$text-primary: #f1f5f9;
-$text-secondary: #cbd5e1;
-$text-muted: #64748b;
-$border-color: #334155;
-$success-color: #10b981;
-$warning-color: #f59e0b;
-$error-color: #ef4444;
+// Base Colors
+$black: #000000;
+$dark-gray: #0a0a0a;
+$medium-gray: #1a1a1a;
+$light-gray: #2a2a2a;
+$border-gray: #333333;
+$white: #ffffff;
+
+// Primary Accent
+$yellow: #FFBF00;
+$yellow-dark: #e6ac00;
+$yellow-light: #fff2cc;
+
+// Text Colors
+$text-primary: #ffffff;
+$text-secondary: #cccccc;
+$text-muted: #999999;
+
+// Status Colors
+$success: #00ff88;
+$error: #ff4444;
+$warning: #ffaa00;
+$info: $yellow;
+
+// Archetype Colors (Updated to match new theme)
+$warrior-color: $yellow;
+$king-color: $yellow-dark;
+$lover-color: $yellow;
+$mage-color: $yellow;
+
+// Background Colors
+$background-primary: $black;
+$background-secondary: $dark-gray;
+$background-tertiary: $medium-gray;
 
 // Export as CSS custom properties for JavaScript access
 :root {
+  // Base Colors
+  --color-black: #{$black};
+  --color-dark-gray: #{$dark-gray};
+  --color-medium-gray: #{$medium-gray};
+  --color-light-gray: #{$light-gray};
+  --color-border: #{$border-gray};
+  --color-white: #{$white};
+  
+  // Primary Accent
+  --color-yellow: #{$yellow};
+  --color-yellow-dark: #{$yellow-dark};
+  --color-yellow-light: #{$yellow-light};
+  
+  // Text Colors
+  --color-text-primary: #{$text-primary};
+  --color-text-secondary: #{$text-secondary};
+  --color-text-muted: #{$text-muted};
+  
+  // Status Colors
+  --color-success: #{$success};
+  --color-error: #{$error};
+  --color-warning: #{$warning};
+  --color-info: #{$info};
+  
+  // Archetype Colors (Unified)
   --warrior-color: #{$warrior-color};
   --king-color: #{$king-color};
   --lover-color: #{$lover-color};
-  --lover-secondary: #{$lover-secondary-color};
   --mage-color: #{$mage-color};
-  --mage-secondary: #{$mage-secondary-color};
   
-  --bg-dark: #{$background-dark};
-  --bg-card: #{$background-card};
-  --text-primary: #{$text-primary};
-  --text-secondary: #{$text-secondary};
-  --text-muted: #{$text-muted};
-  --border-color: #{$border-color};
-  --success-color: #{$success-color};
-  --warning-color: #{$warning-color};
-  --error-color: #{$error-color};
+  // Background Colors
+  --bg-primary: #{$background-primary};
+  --bg-secondary: #{$background-secondary};
+  --bg-tertiary: #{$background-tertiary};
 }
 
-// Utility classes
+// Utility Classes
+.text-primary { color: $text-primary; }
+.text-secondary { color: $text-secondary; }
+.text-muted { color: $text-muted; }
+.text-yellow { color: $yellow; }
+.text-success { color: $success; }
+.text-error { color: $error; }
+.text-warning { color: $warning; }
+
+.bg-black { background-color: $black; }
+.bg-dark { background-color: $dark-gray; }
+.bg-medium { background-color: $medium-gray; }
+.bg-yellow { background-color: $yellow; }
+
+.border-yellow { border-color: $yellow; }
+.border-gray { border-color: $border-gray; }
+
+// Archetype Utility Classes (All use yellow for consistency)
 .warrior { color: $warrior-color; }
 .king { color: $king-color; }
 .lover { color: $lover-color; }
@@ -52,3 +108,51 @@ $error-color: #ef4444;
 .border-king { border-color: $king-color; }
 .border-lover { border-color: $lover-color; }
 .border-mage { border-color: $mage-color; }
+
+// Component-specific color mixins
+@mixin button-primary {
+  background-color: $yellow;
+  color: $black;
+  border-color: $yellow;
+  
+  &:hover {
+    background-color: $yellow-dark;
+    border-color: $yellow-dark;
+  }
+}
+
+@mixin button-secondary {
+  background-color: transparent;
+  color: $yellow;
+  border-color: $yellow;
+  
+  &:hover {
+    background-color: $yellow;
+    color: $black;
+  }
+}
+
+@mixin card-style {
+  background-color: $dark-gray;
+  border: 1px solid $border-gray;
+  color: $text-primary;
+  
+  &:hover {
+    border-color: $yellow;
+  }
+}
+
+@mixin input-style {
+  background-color: $medium-gray;
+  border: 2px solid $border-gray;
+  color: $text-primary;
+  
+  &:focus {
+    border-color: $yellow;
+    box-shadow: 0 0 0 3px rgba(255, 191, 0, 0.1);
+  }
+  
+  &::placeholder {
+    color: $text-muted;
+  }
+}
