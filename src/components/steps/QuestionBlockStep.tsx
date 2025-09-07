@@ -8,6 +8,7 @@ import { useWizardStore } from '../../store/wizardStore';
 import { useAnswersStore } from '../../store/answersStore';
 import { questionBlocks } from '../../data/questions';
 import { QuestionOption } from '../../types';
+import { shuffleArray } from '../../lib/utils';
 
 interface QuestionBlockStepProps {
   blockNumber: number;
@@ -22,6 +23,14 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
 
   const [selectedId, setSelectedId] = useState<string>(existingAnswer?.selectedId || '');
   const [error, setError] = useState<string>('');
+  const [shuffledOptions, setShuffledOptions] = useState<QuestionOption[]>([]);
+
+  // Embaralha as opções quando o bloco muda
+  useEffect(() => {
+    if (block) {
+      setShuffledOptions(shuffleArray(block.options));
+    }
+  }, [blockNumber, block]);
 
   const handleOptionSelect = (optionId: string) => {
     setError('');
@@ -82,12 +91,13 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.4 }}
             >
-              {block.options.map((option) => (
+              {shuffledOptions.map((option, index) => (
                 <OptionCard
                   key={option.id}
                   option={option}
                   selected={selectedId === option.id}
                   onSelect={() => handleOptionSelect(option.id)}
+                  index={index}
                 />
               ))}
             </motion.div>
@@ -146,14 +156,15 @@ interface OptionCardProps {
   option: QuestionOption;
   selected: boolean;
   onSelect: () => void;
+  index: number;
 }
 
-const OptionCard: React.FC<OptionCardProps> = ({ option, selected, onSelect }) => {
+const OptionCard: React.FC<OptionCardProps> = ({ option, selected, onSelect, index }) => {
   return (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.3, delay: index * 0.1 }}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
     >
