@@ -7,7 +7,7 @@ function App() {
   const { toast, hideToast } = useToast();
 
   return (
-    <div className="h-screen-safe overflow-hidden bg-dark-950 text-white">
+    <div className="h-screen-safe py-10 overflow-hidden bg-dark-950 text-white">
       <Wizard />
       <Toast
         message={toast.message}
