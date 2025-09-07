@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowRight, ArrowLeft, User, Phone, Mail, Shield, Lock, Eye, EyeOff } from 'lucide-react';
+import { ArrowRight, ArrowLeft, User, Phone, Mail, Shield, Eye, EyeOff } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
-import { Input } from '../ui/Input';
-import { PhoneInput } from '../ui/PhoneInput';
 import { useWizardStore } from '../../store/wizardStore';
 import { useRespondentStore } from '../../store/respondentStore';
 import { validateName, validateWhatsApp, validateEmail } from '../../lib/validators';
@@ -55,7 +52,6 @@ export const PersonalDataStep: React.FC = () => {
   };
 
   const handleSubmit = () => {
-    // Validate all fields
     const allErrors: Record<string, string> = {};
     allErrors.name = validateField('name', name);
     allErrors.whatsapp = validateField('whatsapp', whatsapp);
@@ -73,186 +69,163 @@ export const PersonalDataStep: React.FC = () => {
   };
 
   return (
-    <div className="step-content">
-      <motion.div
-        initial={{ opacity: 0, x: 30 }}
-        animate={{ opacity: 1, x: 0 }}
-        exit={{ opacity: 0, x: -30 }}
-        className="max-w-md w-full"
-      >
-        <Card variant="glow" padding="lg" className="max-h-screen-safe custom-scrollbar">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <motion.div 
-              className="flex items-center justify-center mb-4"
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2 }}
-            >
-              <motion.div
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              >
-                <User className="w-10 h-10 text-primary-400 mr-3" />
-              </motion.div>
-              <h1 className="text-2xl font-bold text-gradient">
-                Dados Pessoais
-              </h1>
-            </motion.div>
-            <p className="text-gray-400 leading-relaxed">
-              Precisamos de algumas informações para personalizar seus resultados
-            </p>
-          </div>
+    <div className="page-container">
+      <div className="content-area">
+        <div className="container-mobile spacing-mobile">
+          
+          <Card variant="default" padding="lg">
+            {/* Header */}
+            <div className="text-center space-y-2 mb-6">
+              <div className="flex items-center justify-center space-x-2 mb-4">
+                <User className="w-6 h-6 text-blue-400" />
+                <h1 className="heading-lg">Dados Pessoais</h1>
+              </div>
+              <p className="text-muted">
+                Precisamos de algumas informações para personalizar seus resultados
+              </p>
+            </div>
 
-          {/* Form */}
-          <div className="space-y-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-            >
-              <Input
-                label="Nome Completo"
-                value={name}
-                onChange={(e) => handleFieldChange('name', e.target.value)}
-                onBlur={() => handleBlur('name')}
-                placeholder="João Silva Santos"
-                error={errors.name}
-                required
-                icon={<User className="w-4 h-4" />}
-              />
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <div className="space-y-2">
-                <label className="block text-sm font-medium text-gray-300">
-                  WhatsApp
-                  <span className="text-red-400 ml-1">*</span>
+            {/* Form */}
+            <div className="space-y-6">
+              
+              {/* Name Field */}
+              <div className="form-group">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
+                  Nome Completo <span className="text-red-400">*</span>
                 </label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-                  <PhoneInput
-                    value={whatsapp}
-                    onChange={(value) => handleFieldChange('whatsapp', value)}
-                    error={errors.whatsapp}
-                    required
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <input
+                    type="text"
+                    value={name}
+                    onChange={(e) => handleFieldChange('name', e.target.value)}
+                    onBlur={() => handleBlur('name')}
+                    placeholder="João Silva Santos"
+                    className={`input-base pl-10 ${errors.name ? 'input-error' : ''}`}
                   />
                 </div>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5 }}
-            >
-              <Input
-                label="E-mail"
-                type="email"
-                value={email}
-                onChange={(e) => handleFieldChange('email', e.target.value)}
-                onBlur={() => handleBlur('email')}
-                placeholder="joao@exemplo.com"
-                error={errors.email}
-                required
-                icon={<Mail className="w-4 h-4" />}
-              />
-            </motion.div>
-
-            {/* Privacy Section */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6 }}
-              className="space-y-4 p-6 bg-gray-800/50 rounded-xl border border-gray-600/30"
-            >
-              <div className="flex items-center space-x-3 mb-4">
-                <Shield className="w-6 h-6 text-green-400" />
-                <span className="text-lg font-semibold text-gray-300">Proteção de Dados</span>
-                <Lock className="w-4 h-4 text-gray-400" />
+                {errors.name && (
+                  <p className="text-sm text-red-400 mt-1">{errors.name}</p>
+                )}
               </div>
 
-              <label className="flex items-start space-x-3 cursor-pointer group">
-                <input
-                  type="checkbox"
-                  checked={consentGiven}
-                  onChange={(e) => handleFieldChange('consentGiven', e.target.checked)}
-                  className="custom-checkbox mt-1"
-                />
-                <div className="text-sm text-gray-300 leading-relaxed">
-                  <p className="mb-3">
-                    <strong className="text-primary-400">Confirmação de Consentimento:</strong>
-                  </p>
-                  <p className="mb-2">
-                    Concordo com o tratamento dos meus dados pessoais conforme a{' '}
-                    <button
-                      type="button"
-                      onClick={() => setShowPrivacyDetails(!showPrivacyDetails)}
-                      className="text-primary-400 hover:text-primary-300 underline inline-flex items-center"
-                    >
-                      Política de Privacidade
-                      {showPrivacyDetails ? <EyeOff className="w-3 h-3 ml-1" /> : <Eye className="w-3 h-3 ml-1" />}
-                    </button>
-                  </p>
-                  <p>
-                    Autorizo o recebimento dos resultados por WhatsApp e e-mail.
-                  </p>
+              {/* WhatsApp Field */}
+              <div className="form-group">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
+                  WhatsApp <span className="text-red-400">*</span>
+                </label>
+                <div className="relative">
+                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <input
+                    type="tel"
+                    value={whatsapp}
+                    onChange={(e) => handleFieldChange('whatsapp', e.target.value)}
+                    onBlur={() => handleBlur('whatsapp')}
+                    placeholder="(11) 99999-9999"
+                    className={`input-base pl-10 ${errors.whatsapp ? 'input-error' : ''}`}
+                  />
                 </div>
-              </label>
+                {errors.whatsapp && (
+                  <p className="text-sm text-red-400 mt-1">{errors.whatsapp}</p>
+                )}
+              </div>
 
-              {/* Privacy Details */}
-              {showPrivacyDetails && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="mt-4 p-4 bg-gray-900/50 rounded-lg border border-gray-700/50 text-xs text-gray-400 space-y-2"
-                >
-                  <p><strong>• Coleta:</strong> Apenas dados fornecidos voluntariamente</p>
-                  <p><strong>• Uso:</strong> Exclusivamente para gerar e enviar resultados</p>
-                  <p><strong>• Armazenamento:</strong> Dados criptografados e seguros</p>
-                  <p><strong>• Compartilhamento:</strong> Nunca compartilhamos com terceiros</p>
-                  <p><strong>• Direitos:</strong> Você pode solicitar exclusão a qualquer momento</p>
-                </motion.div>
-              )}
+              {/* Email Field */}
+              <div className="form-group">
+                <label className="block text-sm font-medium text-slate-300 mb-2">
+                  E-mail <span className="text-red-400">*</span>
+                </label>
+                <div className="relative">
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => handleFieldChange('email', e.target.value)}
+                    onBlur={() => handleBlur('email')}
+                    placeholder="joao@exemplo.com"
+                    className={`input-base pl-10 ${errors.email ? 'input-error' : ''}`}
+                  />
+                </div>
+                {errors.email && (
+                  <p className="text-sm text-red-400 mt-1">{errors.email}</p>
+                )}
+              </div>
 
-              {errors.consentGiven && (
-                <motion.p 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="text-sm text-red-400 flex items-center space-x-2"
-                >
-                  <span className="w-1 h-1 bg-red-400 rounded-full"></span>
-                  <span>{errors.consentGiven}</span>
-                </motion.p>
-              )}
-            </motion.div>
-          </div>
+              {/* Privacy Section */}
+              <Card variant="default" padding="md" className="bg-slate-800/50">
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-2">
+                    <Shield className="w-5 h-5 text-green-400" />
+                    <span className="text-sm font-medium text-slate-300">Proteção de Dados</span>
+                  </div>
 
-          {/* Navigation */}
-          <div className="flex justify-between mt-8">
-            <Button
-              variant="outline"
-              onClick={previousStep}
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Voltar
-            </Button>
+                  <label className="flex items-start space-x-3 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={consentGiven}
+                      onChange={(e) => handleFieldChange('consentGiven', e.target.checked)}
+                      className="checkbox-base mt-1"
+                    />
+                    <div className="text-sm text-slate-300 leading-relaxed">
+                      <p className="mb-2">
+                        Concordo com o tratamento dos meus dados pessoais e autorizo 
+                        o recebimento dos resultados por WhatsApp e e-mail.
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => setShowPrivacyDetails(!showPrivacyDetails)}
+                        className="text-blue-400 hover:text-blue-300 underline inline-flex items-center"
+                      >
+                        {showPrivacyDetails ? 'Ocultar' : 'Ver'} Política de Privacidade
+                        {showPrivacyDetails ? 
+                          <EyeOff className="w-3 h-3 ml-1" /> : 
+                          <Eye className="w-3 h-3 ml-1" />
+                        }
+                      </button>
+                    </div>
+                  </label>
 
-            <Button 
-              variant="futuristic"
-              onClick={handleSubmit}
-            >
-              Continuar
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </div>
-        </Card>
-      </motion.div>
+                  {showPrivacyDetails && (
+                    <div className="mt-4 p-4 bg-slate-900/50 rounded-lg border border-slate-700 text-xs text-slate-400 space-y-2">
+                      <p><strong>• Coleta:</strong> Apenas dados fornecidos voluntariamente</p>
+                      <p><strong>• Uso:</strong> Exclusivamente para gerar e enviar resultados</p>
+                      <p><strong>• Armazenamento:</strong> Dados criptografados e seguros</p>
+                      <p><strong>• Compartilhamento:</strong> Nunca compartilhamos com terceiros</p>
+                      <p><strong>• Direitos:</strong> Você pode solicitar exclusão a qualquer momento</p>
+                    </div>
+                  )}
+
+                  {errors.consentGiven && (
+                    <p className="text-sm text-red-400">{errors.consentGiven}</p>
+                  )}
+                </div>
+              </Card>
+            </div>
+
+            {/* Navigation */}
+            <div className="flex flex-col sm:flex-row gap-3 sm:justify-between mt-8">
+              <Button
+                variant="outline"
+                onClick={previousStep}
+                leftIcon={<ArrowLeft className="w-4 h-4" />}
+                className="order-2 sm:order-1"
+              >
+                Voltar
+              </Button>
+
+              <Button 
+                variant="primary"
+                onClick={handleSubmit}
+                rightIcon={<ArrowRight className="w-4 h-4" />}
+                className="order-1 sm:order-2"
+              >
+                Continuar
+              </Button>
+            </div>
+          </Card>
+
+        </div>
+      </div>
     </div>
   );
 };

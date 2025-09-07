@@ -1,55 +1,46 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import clsx from 'clsx';
 
 interface CardProps {
   children: React.ReactNode;
   className?: string;
-  hoverable?: boolean;
+  variant?: 'default' | 'interactive' | 'selected';
   padding?: 'sm' | 'md' | 'lg';
-  variant?: 'default' | 'glass' | 'glow';
+  onClick?: () => void;
 }
 
 export const Card: React.FC<CardProps> = ({
   children,
   className,
-  hoverable = false,
+  variant = 'default',
   padding = 'md',
-  variant = 'glass'
+  onClick
 }) => {
+  const baseClasses = 'card-base';
+  
+  const variantClasses = {
+    default: '',
+    interactive: 'card-interactive cursor-pointer',
+    selected: 'card-selected'
+  };
+  
   const paddingClasses = {
     sm: 'p-4',
-    md: 'p-6', 
+    md: 'p-6',
     lg: 'p-8'
   };
 
-  const variantClasses = {
-    default: 'bg-gray-900/80 backdrop-blur-xl border border-gray-700/50 rounded-2xl',
-    glass: 'glass-card',
-    glow: 'glass-card animate-glow'
-  };
-
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      whileHover={hoverable ? { 
-        scale: 1.02, 
-        y: -4,
-        transition: { duration: 0.2 }
-      } : undefined}
+    <div
       className={clsx(
-        'shadow-2xl shadow-black/20 relative overflow-hidden max-h-screen-safe',
+        baseClasses,
         variantClasses[variant],
         paddingClasses[padding],
-        hoverable && 'cursor-pointer transition-transform duration-200',
         className
       )}
+      onClick={onClick}
     >
-      {/* Content */}
-      <div className="relative z-10 custom-scrollbar overflow-y-auto max-h-full">
-        {children}
-      </div>
-    </motion.div>
+      {children}
+    </div>
   );
 };

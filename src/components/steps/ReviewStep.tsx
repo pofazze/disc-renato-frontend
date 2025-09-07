@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Eye, EyeOff } from 'lucide-react';
+import { ArrowLeft, ArrowRight, User, MessageSquare, CheckCircle, AlertCircle } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { useWizardStore } from '../../store/wizardStore';
@@ -16,7 +15,6 @@ export const ReviewStep: React.FC = () => {
   const { setResults, setCalculating } = useResultsStore();
   
   const [finalConsent, setFinalConsent] = useState(false);
-  const [showAnswers, setShowAnswers] = useState(false);
 
   const handleFinish = async () => {
     if (!finalConsent) return;
@@ -25,14 +23,11 @@ export const ReviewStep: React.FC = () => {
     setCalculating(true);
 
     try {
-      // Simulate calculation delay for UX
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      // Calculate results
       const results = DISCCalculator.calculateResults(answers);
       setResults(results);
       
-      // Here you would typically send data to backend
       console.log('Submitting data:', { respondent, answers, results });
       
       nextStep();
@@ -45,129 +40,118 @@ export const ReviewStep: React.FC = () => {
   };
 
   const completedBlocks = answers.filter(a => a.selectedId).length;
+  const isComplete = completedBlocks === 20;
 
   return (
-    <div className="min-h-screen bg-slate-900 p-4">
-      <div className="max-w-2xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -30 }}
-        >
-          <Card padding="lg">
-            <div className="text-center mb-8">
-              <h1 className="text-2xl font-bold text-slate-100 mb-2">
-                Revisão Final
-              </h1>
-              <p className="text-slate-400">
+    <div className="page-container">
+      <div className="content-area">
+        <div className="container-mobile spacing-mobile">
+          
+          <Card variant="default" padding="lg">
+            {/* Header */}
+            <div className="text-center space-y-2 mb-8">
+              <h1 className="heading-lg">Revisão Final</h1>
+              <p className="text-muted">
                 Confirme seus dados antes de gerar os resultados
               </p>
             </div>
 
-            {/* Personal Data Summary */}
-            <div className="mb-8 p-4 bg-slate-700 rounded-lg">
-              <h3 className="font-semibold text-slate-200 mb-3">Dados Pessoais</h3>
-              <div className="space-y-2 text-sm">
-                <p className="text-slate-300">
-                  <span className="text-slate-400">Nome:</span> {respondent.name}
-                </p>
-                <p className="text-slate-300">
-                  <span className="text-slate-400">WhatsApp:</span> {respondent.whatsapp}
-                </p>
-                <p className="text-slate-300">
-                  <span className="text-slate-400">E-mail:</span> {respondent.email}
-                </p>
-              </div>
-            </div>
-
-            {/* Answers Summary */}
-            <div className="mb-8 p-4 bg-slate-700 rounded-lg">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="font-semibold text-slate-200">
-                  Respostas ({completedBlocks}/20)
-                </h3>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setShowAnswers(!showAnswers)}
-                >
-                  {showAnswers ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                  {showAnswers ? 'Ocultar' : 'Mostrar'}
-                </Button>
-              </div>
-
-              {completedBlocks === 20 ? (
-                <div className="flex items-center text-green-400">
-                  <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
-                  Todas as questões foram respondidas
+            <div className="space-y-6">
+              
+              {/* Personal Data Summary */}
+              <Card variant="default" padding="md" className="bg-slate-800/50">
+                <div className="flex items-center space-x-2 mb-4">
+                  <User className="w-5 h-5 text-blue-400" />
+                  <h3 className="heading-md">Dados Pessoais</h3>
                 </div>
-              ) : (
-                <div className="flex items-center text-orange-400">
-                  <span className="w-2 h-2 bg-orange-400 rounded-full mr-2"></span>
-                  {20 - completedBlocks} questões incompletas
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">Nome:</span>
+                    <span className="text-slate-200">{respondent.name}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">WhatsApp:</span>
+                    <span className="text-slate-200">{respondent.whatsapp}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-slate-400">E-mail:</span>
+                    <span className="text-slate-200">{respondent.email}</span>
+                  </div>
                 </div>
-              )}
+              </Card>
 
-              {showAnswers && (
-                <motion.div
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="mt-4 space-y-1 text-xs text-slate-400 max-h-40"
-                >
-                  {answers.map(answer => (
-                    <div key={answer.blockId} className="flex justify-between">
-                      <span>Bloco {answer.blockId}:</span>
-                      <span>{answer.selectedId}</span>
-                    </div>
-                  ))}
-                </motion.div>
-              )}
-            </div>
-
-            {/* Final Consent */}
-            <div className="mb-8 p-4 border border-blue-600 rounded-lg bg-blue-900/10">
-              <label className="flex items-start space-x-3 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={finalConsent}
-                  onChange={(e) => setFinalConsent(e.target.checked)}
-                  className="mt-1 w-4 h-4 text-blue-600 bg-slate-800 border-slate-600 rounded focus:ring-blue-500 focus:ring-2"
-                />
-                <div className="text-sm text-slate-300 leading-relaxed">
-                  <p className="mb-2">
-                    <strong>Confirmação Final:</strong>
-                  </p>
-                  <p>
-                    Confirmo que todas as informações fornecidas são verdadeiras e 
-                    autorizo o processamento dos meus dados para gerar o relatório 
-                    DISC personalizado. Entendo que os resultados serão enviados 
-                    para o e-mail e WhatsApp informados.
-                  </p>
+              {/* Answers Summary */}
+              <Card variant="default" padding="md" className="bg-slate-800/50">
+                <div className="flex items-center space-x-2 mb-4">
+                  <MessageSquare className="w-5 h-5 text-blue-400" />
+                  <h3 className="heading-md">Respostas</h3>
                 </div>
-              </label>
+                
+                <div className="flex items-center space-x-3">
+                  {isComplete ? (
+                    <>
+                      <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
+                      <span className="text-green-400 text-sm">
+                        Todas as 20 questões foram respondidas
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <AlertCircle className="w-5 h-5 text-orange-400 flex-shrink-0" />
+                      <span className="text-orange-400 text-sm">
+                        {completedBlocks}/20 questões respondidas
+                      </span>
+                    </>
+                  )}
+                </div>
+              </Card>
+
+              {/* Final Consent */}
+              <Card variant="default" padding="md" className="border-blue-500/30 bg-blue-900/10">
+                <label className="flex items-start space-x-3 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={finalConsent}
+                    onChange={(e) => setFinalConsent(e.target.checked)}
+                    className="checkbox-base mt-1"
+                  />
+                  <div className="text-sm text-slate-300 leading-relaxed">
+                    <p className="font-medium mb-2">Confirmação Final:</p>
+                    <p>
+                      Confirmo que todas as informações fornecidas são verdadeiras e 
+                      autorizo o processamento dos meus dados para gerar o relatório 
+                      DISC personalizado. Entendo que os resultados serão enviados 
+                      para o e-mail e WhatsApp informados.
+                    </p>
+                  </div>
+                </label>
+              </Card>
             </div>
 
             {/* Navigation */}
-            <div className="flex justify-between">
+            <div className="flex flex-col sm:flex-row gap-3 sm:justify-between mt-8">
               <Button
                 variant="outline"
                 onClick={previousStep}
+                leftIcon={<ArrowLeft className="w-4 h-4" />}
+                className="order-2 sm:order-1"
               >
-                <ArrowLeft className="w-4 h-4 mr-2" />
                 Voltar
               </Button>
 
               <Button
+                variant="primary"
                 onClick={handleFinish}
-                disabled={!finalConsent || completedBlocks < 20}
+                disabled={!finalConsent || !isComplete}
+                rightIcon={<ArrowRight className="w-4 h-4" />}
+                className="order-1 sm:order-2"
               >
                 Gerar Resultados
-                <ArrowRight className="w-4 h-4 ml-2" />
               </Button>
             </div>
           </Card>
-        </motion.div>
+
+        </div>
       </div>
     </div>
   );

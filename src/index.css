@@ -1,187 +1,215 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ==========================================================================
-   Tailwind CSS Custom Configuration
-   Dark Professional Theme with Yellow Accents
+   Mobile-First Design System
+   Clean, Modern, Accessible Interface
    ========================================================================== */
 
 @layer base {
-  /* CORREÇÃO 1: Controle de altura viewport */
   html {
-    @apply h-screen overflow-hidden;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    scroll-behavior: smooth;
   }
   
   body {
-    @apply h-screen overflow-hidden bg-black text-white;
+    @apply bg-slate-900 text-white antialiased;
+    min-height: 100vh;
+    overflow-x: hidden;
   }
   
-  /* CORREÇÃO 1: Container principal com altura controlada */
   #root {
-    @apply h-screen overflow-hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
   }
 }
 
 @layer components {
-  /* CORREÇÃO 2: Substituição de cores azuis/roxas por amarelo */
-  .text-blue-400,
-  .text-blue-500,
-  .text-blue-600,
-  .text-cyan-400,
-  .text-cyan-500 {
-    @apply text-yellow-400 !important;
+  /* Container System */
+  .container-mobile {
+    @apply w-full px-4 mx-auto;
+    max-width: 100%;
   }
   
-  .text-purple-400,
-  .text-purple-500,
-  .text-indigo-500 {
-    @apply text-yellow-500 !important;
+  .container-tablet {
+    @apply md:px-6 md:max-w-2xl;
   }
   
-  .bg-blue-500,
-  .bg-blue-900,
-  .bg-cyan-500,
-  .bg-purple-500,
-  .bg-indigo-500 {
-    @apply bg-yellow-500 !important;
+  .container-desktop {
+    @apply lg:px-8 lg:max-w-4xl xl:max-w-6xl;
   }
   
-  .border-blue-500,
-  .border-cyan-500,
-  .border-purple-500,
-  .border-indigo-500 {
-    @apply border-yellow-500 !important;
+  /* Card Components */
+  .card-base {
+    @apply bg-slate-800 border border-slate-700 rounded-lg;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   
-  /* Glass effect com tema escuro */
-  .glass-card {
-    @apply bg-gray-900/80 backdrop-blur-xl border border-gray-700/50 rounded-3xl;
+  .card-interactive {
+    @apply card-base transition-all duration-200 hover:bg-slate-750 hover:border-slate-600;
   }
   
-  .glass-dark {
-    @apply bg-gray-800/50 backdrop-blur-sm;
+  .card-selected {
+    @apply bg-blue-900/20 border-blue-500/50;
   }
   
-  /* CORREÇÃO 1: Cards com altura controlada */
-  .card-container {
-    @apply max-h-screen overflow-y-auto;
+  /* Button System */
+  .btn-base {
+    @apply inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900;
+    @apply disabled:opacity-50 disabled:cursor-not-allowed;
   }
   
-  /* Botões futurísticos */
-  .btn-futuristic {
-    @apply relative overflow-hidden transition-all duration-300 transform hover:scale-105 hover:-translate-y-1;
+  .btn-primary {
+    @apply btn-base bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
+    @apply px-4 py-2 text-sm;
   }
   
-  /* CORREÇÃO 2: Gradiente de texto amarelo */
-  .text-gradient {
-    @apply bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-400 bg-clip-text text-transparent;
+  .btn-secondary {
+    @apply btn-base bg-slate-700 text-slate-200 hover:bg-slate-600 focus:ring-slate-500;
+    @apply px-4 py-2 text-sm;
   }
   
-  /* Efeitos de brilho amarelo */
-  .animate-glow {
-    @apply shadow-lg shadow-yellow-500/20;
-    animation: glow 2s ease-in-out infinite alternate;
+  .btn-outline {
+    @apply btn-base border border-slate-600 text-slate-300 hover:bg-slate-800 focus:ring-slate-500;
+    @apply px-4 py-2 text-sm;
   }
   
-  .text-glow {
-    text-shadow: 0 0 10px rgba(255, 191, 0, 0.5);
+  .btn-large {
+    @apply px-6 py-3 text-base;
   }
   
-  /* CORREÇÃO 1: Wrapper para componentes com altura fixa */
-  .step-wrapper {
-    @apply h-screen overflow-hidden flex flex-col;
+  /* Form Elements */
+  .input-base {
+    @apply w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-white;
+    @apply placeholder-slate-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500;
+    @apply focus:outline-none transition-colors duration-200;
   }
   
-  .step-content {
-    @apply flex-1 p-4 flex items-center justify-center;
+  .input-error {
+    @apply border-red-500 focus:border-red-500 focus:ring-red-500;
   }
   
-  /* CORREÇÃO 3: Select customizado com fundo escuro */
-  .custom-select {
-    @apply w-full px-4 py-3 bg-gray-800 border-2 border-gray-600 rounded-xl text-white;
-    @apply focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500/20 focus:outline-none;
-    @apply appearance-none cursor-pointer transition-all duration-300;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23FFBF00' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 1rem;
-    padding-right: 3rem;
+  .checkbox-base {
+    @apply w-4 h-4 text-blue-600 bg-slate-800 border-slate-600 rounded;
+    @apply focus:ring-blue-500 focus:ring-2 focus:ring-offset-0;
   }
   
-  .custom-select option {
-    @apply bg-gray-800 text-white py-2;
+  /* Progress Bar */
+  .progress-container {
+    @apply w-full bg-slate-700 rounded-full h-2;
   }
   
-  /* Input customizado */
-  .custom-input {
-    @apply w-full px-4 py-3 bg-gray-800 border-2 border-gray-600 rounded-xl text-white;
-    @apply placeholder-gray-400 focus:border-yellow-500 focus:ring-2 focus:ring-yellow-500/20;
-    @apply focus:outline-none transition-all duration-300;
+  .progress-bar {
+    @apply bg-blue-600 h-2 rounded-full transition-all duration-300 ease-out;
   }
   
-  /* Checkbox customizado */
-  .custom-checkbox {
-    @apply w-5 h-5 text-yellow-500 bg-gray-800 border-2 border-gray-600 rounded;
-    @apply focus:ring-2 focus:ring-yellow-500/20 focus:ring-offset-0 focus:outline-none;
+  /* Typography */
+  .heading-xl {
+    @apply text-2xl font-bold text-white;
   }
   
-  /* Progress bar customizada */
-  .custom-progress {
-    @apply w-full h-3 bg-gray-700 rounded-full overflow-hidden;
+  .heading-lg {
+    @apply text-xl font-semibold text-white;
   }
   
-  .custom-progress-bar {
-    @apply h-full bg-gradient-to-r from-yellow-500 to-yellow-400 transition-all duration-500 ease-out;
+  .heading-md {
+    @apply text-lg font-medium text-white;
+  }
+  
+  .text-body {
+    @apply text-slate-300 leading-relaxed;
+  }
+  
+  .text-muted {
+    @apply text-slate-400 text-sm;
+  }
+  
+  /* Layout Utilities */
+  .page-container {
+    @apply min-h-screen flex flex-col;
+  }
+  
+  .content-area {
+    @apply flex-1 py-4;
+  }
+  
+  .section-spacing {
+    @apply space-y-6;
+  }
+  
+  .form-group {
+    @apply space-y-2;
+  }
+  
+  /* Responsive Spacing */
+  .spacing-mobile {
+    @apply space-y-4;
+  }
+  
+  .spacing-tablet {
+    @apply md:space-y-6;
+  }
+  
+  .spacing-desktop {
+    @apply lg:space-y-8;
   }
 }
 
 @layer utilities {
-  /* CORREÇÃO 1: Utilitários para controle de altura */
-  .h-screen-safe {
-    height: 100vh;
-    height: 100dvh; /* Dynamic viewport height para mobile */
+  /* Safe Area Utilities */
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
   }
   
-  .max-h-screen-safe {
-    max-height: 100vh;
-    max-height: 100dvh;
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
   }
   
-  /* Animações de entrada/saída */
-  .animate-fade-in {
-    animation: fadeIn 0.5s ease-out;
+  /* Scrolling */
+  .scroll-smooth {
+    scroll-behavior: smooth;
   }
   
-  .animate-slide-up {
-    animation: slideUp 0.5s ease-out;
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
   }
   
-  .animate-slide-down {
-    animation: slideDown 0.5s ease-out;
+  .scrollbar-thin::-webkit-scrollbar-track {
+    @apply bg-slate-800;
   }
   
-  /* Scrollbar customizada */
-  .custom-scrollbar::-webkit-scrollbar {
-    @apply w-2;
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    @apply bg-slate-600 rounded-full;
   }
   
-  .custom-scrollbar::-webkit-scrollbar-track {
-    @apply bg-gray-800;
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    @apply bg-slate-500;
   }
   
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-yellow-500 rounded-full;
+  /* Text Utilities */
+  .text-gradient {
+    @apply bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent;
   }
   
-  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-    @apply bg-yellow-400;
+  /* Animation Utilities - Minimal and Purposeful */
+  .fade-in {
+    animation: fadeIn 0.3s ease-out;
+  }
+  
+  .slide-up {
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  .scale-in {
+    animation: scaleIn 0.2s ease-out;
   }
 }
 
-/* Keyframes para animações */
+/* Keyframes - Simple and Fast */
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -190,7 +218,7 @@
 @keyframes slideUp {
   from { 
     opacity: 0; 
-    transform: translateY(30px); 
+    transform: translateY(20px); 
   }
   to { 
     opacity: 1; 
@@ -198,47 +226,55 @@
   }
 }
 
-@keyframes slideDown {
+@keyframes scaleIn {
   from { 
     opacity: 0; 
-    transform: translateY(-30px); 
+    transform: scale(0.95); 
   }
   to { 
     opacity: 1; 
-    transform: translateY(0); 
+    transform: scale(1); 
   }
 }
 
-@keyframes glow {
-  from {
-    box-shadow: 0 0 20px rgba(255, 191, 0, 0.2);
-  }
-  to {
-    box-shadow: 0 0 30px rgba(255, 191, 0, 0.4);
-  }
-}
-
-/* CORREÇÃO 2: Override para cores do Tailwind */
-.bg-slate-900 { @apply bg-black !important; }
-.bg-slate-800 { @apply bg-gray-900 !important; }
-.bg-slate-700 { @apply bg-gray-800 !important; }
-.text-slate-100 { @apply text-white !important; }
-.text-slate-300 { @apply text-gray-300 !important; }
-.text-slate-400 { @apply text-gray-400 !important; }
-.border-slate-600 { @apply border-gray-600 !important; }
-
-/* Responsividade para mobile */
-@media (max-width: 640px) {
-  .step-content {
-    @apply p-2;
+/* Responsive Design Breakpoints */
+@media (min-width: 768px) {
+  .container-mobile {
+    @apply container-tablet;
   }
   
-  .glass-card {
-    @apply rounded-2xl;
+  .spacing-mobile {
+    @apply spacing-tablet;
+  }
+  
+  .heading-xl {
+    @apply text-3xl;
+  }
+  
+  .heading-lg {
+    @apply text-2xl;
   }
 }
 
-/* Acessibilidade */
+@media (min-width: 1024px) {
+  .container-mobile {
+    @apply container-desktop;
+  }
+  
+  .spacing-mobile {
+    @apply spacing-desktop;
+  }
+  
+  .heading-xl {
+    @apply text-4xl;
+  }
+  
+  .heading-lg {
+    @apply text-3xl;
+  }
+}
+
+/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -247,7 +283,14 @@
   }
 }
 
-/* Focus visible para navegação por teclado */
+/* Focus Management */
 :focus-visible {
-  @apply outline-2 outline-yellow-500 outline-offset-2;
+  @apply outline-2 outline-blue-500 outline-offset-2;
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
 }
