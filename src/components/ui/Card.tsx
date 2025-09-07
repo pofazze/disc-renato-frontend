@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import clsx from 'clsx';
 
 interface CardProps {
@@ -31,7 +32,12 @@ export const Card: React.FC<CardProps> = ({
   };
 
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, ease: "easeOut" }}
+      whileHover={onClick ? { scale: 1.02 } : {}}
+      whileTap={onClick ? { scale: 0.98 } : {}}
       className={clsx(
         baseClasses,
         variantClasses[variant],
@@ -41,6 +47,6 @@ export const Card: React.FC<CardProps> = ({
       onClick={onClick}
     >
       {children}
-    </div>
+    </motion.div>
   );
 };

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { ArrowRight, ArrowLeft, User, Phone, Mail, Shield, Eye, EyeOff } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
@@ -69,15 +70,25 @@ export const PersonalDataStep: React.FC = () => {
   };
 
   return (
-    <div className="page-container">
+    <motion.div 
+      className="page-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="content-area">
-        <div className="container-mobile spacing-mobile">
+        <motion.div 
+          className="container-mobile spacing-mobile"
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           
           <Card variant="default" padding="lg">
             {/* Header */}
             <div className="text-center space-y-2 mb-6">
               <div className="flex items-center justify-center space-x-2 mb-4">
-                <User className="w-6 h-6 text-blue-400" />
+                <User className="w-6 h-6 text-yellow-400" />
                 <h1 className="heading-lg">Dados Pessoais</h1>
               </div>
               <p className="text-muted">
@@ -90,11 +101,11 @@ export const PersonalDataStep: React.FC = () => {
               
               {/* Name Field */}
               <div className="form-group">
-                <label className="block text-sm font-medium text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-yellow-300 mb-2">
                   Nome Completo <span className="text-red-400">*</span>
                 </label>
                 <div className="relative">
-                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <User className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-yellow-400/60" />
                   <input
                     type="text"
                     value={name}
@@ -111,11 +122,11 @@ export const PersonalDataStep: React.FC = () => {
 
               {/* WhatsApp Field */}
               <div className="form-group">
-                <label className="block text-sm font-medium text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-yellow-300 mb-2">
                   WhatsApp <span className="text-red-400">*</span>
                 </label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-yellow-400/60" />
                   <input
                     type="tel"
                     value={whatsapp}
@@ -132,11 +143,11 @@ export const PersonalDataStep: React.FC = () => {
 
               {/* Email Field */}
               <div className="form-group">
-                <label className="block text-sm font-medium text-slate-300 mb-2">
+                <label className="block text-sm font-medium text-yellow-300 mb-2">
                   E-mail <span className="text-red-400">*</span>
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-slate-400" />
+                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-yellow-400/60" />
                   <input
                     type="email"
                     value={email}
@@ -152,11 +163,11 @@ export const PersonalDataStep: React.FC = () => {
               </div>
 
               {/* Privacy Section */}
-              <Card variant="default" padding="md" className="bg-slate-800/50">
+              <Card variant="default" padding="md" className="bg-gray-800/50">
                 <div className="space-y-4">
                   <div className="flex items-center space-x-2">
-                    <Shield className="w-5 h-5 text-green-400" />
-                    <span className="text-sm font-medium text-slate-300">Proteção de Dados</span>
+                    <Shield className="w-5 h-5 text-yellow-400" />
+                    <span className="text-sm font-medium text-yellow-300">Proteção de Dados</span>
                   </div>
 
                   <label className="flex items-start space-x-3 cursor-pointer">
@@ -166,7 +177,7 @@ export const PersonalDataStep: React.FC = () => {
                       onChange={(e) => handleFieldChange('consentGiven', e.target.checked)}
                       className="checkbox-base mt-1"
                     />
-                    <div className="text-sm text-slate-300 leading-relaxed">
+                    <div className="text-sm text-yellow-300 leading-relaxed">
                       <p className="mb-2">
                         Concordo com o tratamento dos meus dados pessoais e autorizo 
                         o recebimento dos resultados por WhatsApp e e-mail.
@@ -174,7 +185,7 @@ export const PersonalDataStep: React.FC = () => {
                       <button
                         type="button"
                         onClick={() => setShowPrivacyDetails(!showPrivacyDetails)}
-                        className="text-blue-400 hover:text-blue-300 underline inline-flex items-center"
+                        className="text-yellow-400 hover:text-yellow-300 underline inline-flex items-center"
                       >
                         {showPrivacyDetails ? 'Ocultar' : 'Ver'} Política de Privacidade
                         {showPrivacyDetails ? 
@@ -186,7 +197,7 @@ export const PersonalDataStep: React.FC = () => {
                   </label>
 
                   {showPrivacyDetails && (
-                    <div className="mt-4 p-4 bg-slate-900/50 rounded-lg border border-slate-700 text-xs text-slate-400 space-y-2">
+                    <div className="mt-4 p-4 bg-black/50 rounded-lg border border-yellow-600/30 text-xs text-yellow-400/70 space-y-2">
                       <p><strong>• Coleta:</strong> Apenas dados fornecidos voluntariamente</p>
                       <p><strong>• Uso:</strong> Exclusivamente para gerar e enviar resultados</p>
                       <p><strong>• Armazenamento:</strong> Dados criptografados e seguros</p>
@@ -224,8 +235,8 @@ export const PersonalDataStep: React.FC = () => {
             </div>
           </Card>
 
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };

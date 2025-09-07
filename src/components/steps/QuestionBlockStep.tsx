@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, CheckCircle2, AlertCircle } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
@@ -42,13 +43,23 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
   const isComplete = !!selectedId;
 
   return (
-    <div className="page-container">
+    <motion.div 
+      className="page-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="content-area">
-        <div className="container-mobile spacing-mobile">
+        <motion.div 
+          className="container-mobile spacing-mobile"
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           
           {/* Progress Header */}
           <div className="space-y-4">
-            <div className="flex justify-between items-center text-sm text-slate-400">
+            <div className="flex justify-between items-center text-sm text-yellow-400/70">
               <span>Pergunta {blockNumber} de 20</span>
               <span>{Math.round(progress)}%</span>
             </div>
@@ -65,7 +76,12 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
             </div>
 
             {/* Options */}
-            <div className="space-y-3 mb-6">
+            <motion.div 
+              className="space-y-3 mb-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+            >
               {block.options.map((option) => (
                 <OptionCard
                   key={option.id}
@@ -74,7 +90,7 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
                   onSelect={() => handleOptionSelect(option.id)}
                 />
               ))}
-            </div>
+            </motion.div>
 
             {/* Status Messages */}
             {error && (
@@ -87,10 +103,10 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
             )}
 
             {isComplete && !error && (
-              <div className="mb-6 p-4 bg-green-900/20 border border-green-500/50 rounded-lg">
+              <div className="mb-6 p-4 bg-yellow-900/20 border border-yellow-500/50 rounded-lg">
                 <div className="flex items-center space-x-3">
-                  <CheckCircle2 className="w-5 h-5 text-green-400 flex-shrink-0" />
-                  <p className="text-green-300 text-sm">
+                  <CheckCircle2 className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                  <p className="text-yellow-300 text-sm">
                     Resposta selecionada! Pronto para continuar.
                   </p>
                 </div>
@@ -120,9 +136,9 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
             </div>
           </Card>
 
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
@@ -134,24 +150,32 @@ interface OptionCardProps {
 
 const OptionCard: React.FC<OptionCardProps> = ({ option, selected, onSelect }) => {
   return (
-    <Card
-      variant={selected ? 'selected' : 'interactive'}
-      padding="md"
-      onClick={onSelect}
-      className="transition-all duration-200"
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.3 }}
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.98 }}
     >
-      <div className="flex items-start space-x-3">
-        <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 mt-1 transition-colors ${
-          selected 
-            ? 'bg-blue-500 border-blue-500' 
-            : 'border-slate-400 hover:border-slate-300'
-        }`}>
-          {selected && (
-            <div className="w-full h-full rounded-full bg-white scale-50" />
-          )}
+      <Card
+        variant={selected ? 'selected' : 'interactive'}
+        padding="md"
+        onClick={onSelect}
+        className="transition-all duration-200"
+      >
+        <div className="flex items-start space-x-3">
+          <div className={`w-4 h-4 rounded-full border-2 flex-shrink-0 mt-1 transition-colors ${
+            selected 
+              ? 'bg-yellow-500 border-yellow-500' 
+              : 'border-yellow-400/60 hover:border-yellow-300'
+          }`}>
+            {selected && (
+              <div className="w-full h-full rounded-full bg-black scale-50" />
+            )}
+          </div>
+          <p className="text-yellow-200 leading-relaxed">{option.text}</p>
         </div>
-        <p className="text-slate-200 leading-relaxed">{option.text}</p>
-      </div>
-    </Card>
+      </Card>
+    </motion.div>
   );
 };

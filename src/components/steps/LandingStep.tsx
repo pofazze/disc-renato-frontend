@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { ArrowRight, Target, Clock, Users, BarChart3, Shield, CheckCircle } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
@@ -35,32 +36,42 @@ export const LandingStep: React.FC = () => {
       icon: Target,
       name: 'Guerreiro',
       description: 'Orientado à ação e resultados',
-      color: 'text-red-400'
+      color: 'text-yellow-400'
     },
     {
       icon: Users,
       name: 'Rei',
       description: 'Visionário e estratégico',
-      color: 'text-purple-400'
+      color: 'text-yellow-300'
     },
     {
       icon: CheckCircle,
       name: 'Amante',
       description: 'Empático e colaborativo',
-      color: 'text-green-400'
+      color: 'text-yellow-500'
     },
     {
       icon: BarChart3,
       name: 'Mago',
       description: 'Analítico e preciso',
-      color: 'text-blue-400'
+      color: 'text-yellow-600'
     }
   ];
 
   return (
-    <div className="page-container">
+    <motion.div 
+      className="page-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="content-area">
-        <div className="container-mobile spacing-mobile">
+        <motion.div 
+          className="container-mobile spacing-mobile"
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           
           {/* Header */}
           <div className="text-center space-y-4">
@@ -74,11 +85,16 @@ export const LandingStep: React.FC = () => {
           </div>
 
           {/* Features Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <motion.div 
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+          >
             {features.map((feature, index) => (
               <Card key={index} variant="default" padding="md">
                 <div className="flex items-start space-x-3">
-                  <feature.icon className="w-6 h-6 text-blue-400 flex-shrink-0 mt-1" />
+                  <feature.icon className="w-6 h-6 text-yellow-400 flex-shrink-0 mt-1" />
                   <div>
                     <h3 className="heading-md mb-1">{feature.title}</h3>
                     <p className="text-muted">{feature.description}</p>
@@ -86,10 +102,15 @@ export const LandingStep: React.FC = () => {
                 </div>
               </Card>
             ))}
-          </div>
+          </motion.div>
 
           {/* Archetypes */}
-          <div className="space-y-4">
+          <motion.div 
+            className="space-y-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.6 }}
+          >
             <h2 className="heading-lg text-center">Arquétipos Comportamentais</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {archetypes.map((archetype, index) => (
@@ -104,12 +125,12 @@ export const LandingStep: React.FC = () => {
                 </Card>
               ))}
             </div>
-          </div>
+          </motion.div>
 
           {/* Security Notice */}
           <Card variant="default" padding="md" className="bg-slate-800/50">
             <div className="flex items-center space-x-3 text-center">
-              <Shield className="w-5 h-5 text-green-400 flex-shrink-0" />
+              <Shield className="w-5 h-5 text-yellow-400 flex-shrink-0" />
               <p className="text-muted">
                 100% Gratuito • Resultados Instantâneos • Dados Protegidos
               </p>
@@ -129,8 +150,8 @@ export const LandingStep: React.FC = () => {
             </Button>
           </div>
 
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };

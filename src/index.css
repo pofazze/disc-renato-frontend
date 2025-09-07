@@ -15,7 +15,7 @@
   }
   
   body {
-    @apply bg-slate-900 text-white antialiased;
+    @apply bg-black text-yellow-100 antialiased;
     min-height: 100vh;
     overflow-x: hidden;
   }
@@ -44,37 +44,37 @@
   
   /* Card Components */
   .card-base {
-    @apply bg-slate-800 border border-slate-700 rounded-lg;
+    @apply bg-gray-900 border border-yellow-600/30 rounded-lg;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   }
   
   .card-interactive {
-    @apply card-base transition-all duration-200 hover:bg-slate-750 hover:border-slate-600;
+    @apply card-base transition-all duration-200 hover:bg-gray-800 hover:border-yellow-500/50;
   }
   
   .card-selected {
-    @apply bg-blue-900/20 border-blue-500/50;
+    @apply bg-yellow-900/20 border-yellow-500/70;
   }
   
   /* Button System */
   .btn-base {
     @apply inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200;
-    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black;
     @apply disabled:opacity-50 disabled:cursor-not-allowed;
   }
   
   .btn-primary {
-    @apply btn-base bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500;
+    @apply btn-base bg-yellow-600 text-black hover:bg-yellow-500 focus:ring-yellow-500;
     @apply px-4 py-2 text-sm;
   }
   
   .btn-secondary {
-    @apply btn-base bg-slate-700 text-slate-200 hover:bg-slate-600 focus:ring-slate-500;
+    @apply btn-base bg-gray-800 text-yellow-200 hover:bg-gray-700 focus:ring-yellow-500;
     @apply px-4 py-2 text-sm;
   }
   
   .btn-outline {
-    @apply btn-base border border-slate-600 text-slate-300 hover:bg-slate-800 focus:ring-slate-500;
+    @apply btn-base border border-yellow-600 text-yellow-300 hover:bg-gray-900 focus:ring-yellow-500;
     @apply px-4 py-2 text-sm;
   }
   
@@ -84,8 +84,8 @@
   
   /* Form Elements */
   .input-base {
-    @apply w-full px-3 py-2 bg-slate-800 border border-slate-600 rounded-lg text-white;
-    @apply placeholder-slate-400 focus:border-blue-500 focus:ring-1 focus:ring-blue-500;
+    @apply w-full px-3 py-2 bg-gray-900 border border-yellow-600/50 rounded-lg text-yellow-100;
+    @apply placeholder-yellow-400/60 focus:border-yellow-500 focus:ring-1 focus:ring-yellow-500;
     @apply focus:outline-none transition-colors duration-200;
   }
   
@@ -94,38 +94,38 @@
   }
   
   .checkbox-base {
-    @apply w-4 h-4 text-blue-600 bg-slate-800 border-slate-600 rounded;
-    @apply focus:ring-blue-500 focus:ring-2 focus:ring-offset-0;
+    @apply w-4 h-4 text-yellow-600 bg-gray-900 border-yellow-600/50 rounded;
+    @apply focus:ring-yellow-500 focus:ring-2 focus:ring-offset-0;
   }
   
   /* Progress Bar */
   .progress-container {
-    @apply w-full bg-slate-700 rounded-full h-2;
+    @apply w-full bg-gray-800 rounded-full h-2;
   }
   
   .progress-bar {
-    @apply bg-blue-600 h-2 rounded-full transition-all duration-300 ease-out;
+    @apply bg-yellow-500 h-2 rounded-full transition-all duration-300 ease-out;
   }
   
   /* Typography */
   .heading-xl {
-    @apply text-2xl font-bold text-white;
+    @apply text-2xl font-bold text-yellow-100;
   }
   
   .heading-lg {
-    @apply text-xl font-semibold text-white;
+    @apply text-xl font-semibold text-yellow-100;
   }
   
   .heading-md {
-    @apply text-lg font-medium text-white;
+    @apply text-lg font-medium text-yellow-100;
   }
   
   .text-body {
-    @apply text-slate-300 leading-relaxed;
+    @apply text-yellow-200 leading-relaxed;
   }
   
   .text-muted {
-    @apply text-slate-400 text-sm;
+    @apply text-yellow-400/70 text-sm;
   }
   
   /* Layout Utilities */
@@ -179,20 +179,20 @@
   }
   
   .scrollbar-thin::-webkit-scrollbar-track {
-    @apply bg-slate-800;
+    @apply bg-gray-800;
   }
   
   .scrollbar-thin::-webkit-scrollbar-thumb {
-    @apply bg-slate-600 rounded-full;
+    @apply bg-yellow-600 rounded-full;
   }
   
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    @apply bg-slate-500;
+    @apply bg-yellow-500;
   }
   
   /* Text Utilities */
   .text-gradient {
-    @apply bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-yellow-400 to-yellow-600 bg-clip-text text-transparent;
   }
   
   /* Animation Utilities - Minimal and Purposeful */
@@ -285,7 +285,7 @@
 
 /* Focus Management */
 :focus-visible {
-  @apply outline-2 outline-blue-500 outline-offset-2;
+  @apply outline-2 outline-yellow-500 outline-offset-2;
 }
 
 /* Print Styles */

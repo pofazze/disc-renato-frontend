@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, User, MessageSquare, CheckCircle, AlertCircle } from 'lucide-react';
 import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
@@ -43,9 +44,19 @@ export const ReviewStep: React.FC = () => {
   const isComplete = completedBlocks === 20;
 
   return (
-    <div className="page-container">
+    <motion.div 
+      className="page-container"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
       <div className="content-area">
-        <div className="container-mobile spacing-mobile">
+        <motion.div 
+          className="container-mobile spacing-mobile"
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
           
           <Card variant="default" padding="lg">
             {/* Header */}
@@ -59,39 +70,39 @@ export const ReviewStep: React.FC = () => {
             <div className="space-y-6">
               
               {/* Personal Data Summary */}
-              <Card variant="default" padding="md" className="bg-slate-800/50">
+              <Card variant="default" padding="md" className="bg-gray-800/50">
                 <div className="flex items-center space-x-2 mb-4">
-                  <User className="w-5 h-5 text-blue-400" />
+                  <User className="w-5 h-5 text-yellow-400" />
                   <h3 className="heading-md">Dados Pessoais</h3>
                 </div>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-slate-400">Nome:</span>
-                    <span className="text-slate-200">{respondent.name}</span>
+                    <span className="text-yellow-400/70">Nome:</span>
+                    <span className="text-yellow-200">{respondent.name}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-400">WhatsApp:</span>
-                    <span className="text-slate-200">{respondent.whatsapp}</span>
+                    <span className="text-yellow-400/70">WhatsApp:</span>
+                    <span className="text-yellow-200">{respondent.whatsapp}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-400">E-mail:</span>
-                    <span className="text-slate-200">{respondent.email}</span>
+                    <span className="text-yellow-400/70">E-mail:</span>
+                    <span className="text-yellow-200">{respondent.email}</span>
                   </div>
                 </div>
               </Card>
 
               {/* Answers Summary */}
-              <Card variant="default" padding="md" className="bg-slate-800/50">
+              <Card variant="default" padding="md" className="bg-gray-800/50">
                 <div className="flex items-center space-x-2 mb-4">
-                  <MessageSquare className="w-5 h-5 text-blue-400" />
+                  <MessageSquare className="w-5 h-5 text-yellow-400" />
                   <h3 className="heading-md">Respostas</h3>
                 </div>
                 
                 <div className="flex items-center space-x-3">
                   {isComplete ? (
                     <>
-                      <CheckCircle className="w-5 h-5 text-green-400 flex-shrink-0" />
-                      <span className="text-green-400 text-sm">
+                      <CheckCircle className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                      <span className="text-yellow-400 text-sm">
                         Todas as 20 questões foram respondidas
                       </span>
                     </>
@@ -107,7 +118,7 @@ export const ReviewStep: React.FC = () => {
               </Card>
 
               {/* Final Consent */}
-              <Card variant="default" padding="md" className="border-blue-500/30 bg-blue-900/10">
+              <Card variant="default" padding="md" className="border-yellow-500/30 bg-yellow-900/10">
                 <label className="flex items-start space-x-3 cursor-pointer">
                   <input
                     type="checkbox"
@@ -115,7 +126,7 @@ export const ReviewStep: React.FC = () => {
                     onChange={(e) => setFinalConsent(e.target.checked)}
                     className="checkbox-base mt-1"
                   />
-                  <div className="text-sm text-slate-300 leading-relaxed">
+                  <div className="text-sm text-yellow-300 leading-relaxed">
                     <p className="font-medium mb-2">Confirmação Final:</p>
                     <p>
                       Confirmo que todas as informações fornecidas são verdadeiras e 
@@ -151,8 +162,8 @@ export const ReviewStep: React.FC = () => {
             </div>
           </Card>
 
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
