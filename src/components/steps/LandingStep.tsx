@@ -71,13 +71,13 @@ export const LandingStep: React.FC = () => {
   ];
 
   return (
-    <div className="step-content">
+    <div className="step-content ">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
+        animate={{ opacity: 1, y: 0 }}  
         className="max-w-5xl w-full"
       >
-        <Card variant="glow" padding="lg" className="text-center max-h-screen-safe overflow-y-auto custom-scrollbar">
+        <Card variant="glow" padding="lg" className="text-center max-h-screen-safe custom-scrollbar">
           <motion.div
             initial={{ scale: 0.8 }}
             animate={{ scale: 1 }}
@@ -85,23 +85,11 @@ export const LandingStep: React.FC = () => {
           >
             {/* Header with animated icons */}
             <div className="flex items-center justify-center mb-6">
-              <motion.div
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-              >
-                <Rocket className="w-12 h-12 text-primary-400 mr-4" />
-              </motion.div>
               
               <h1 className="text-4xl md:text-6xl font-bold text-gradient tracking-wide">
                 Teste DISC Mitológico
               </h1>
               
-              <motion.div
-                animate={{ rotate: [360, 0] }}
-                transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-              >
-                <Star className="w-12 h-12 text-primary-400 ml-4" />
-              </motion.div>
             </div>
 
             {/* Subtitle with enhanced styling */}
@@ -198,11 +186,10 @@ export const LandingStep: React.FC = () => {
                   variant="futuristic"
                   size="lg"
                   onClick={nextStep}
-                  className="px-12 py-4 text-lg font-bold shadow-2xl shadow-primary-500/30 hover:shadow-primary-500/50"
+                  className=" py-4 flex flex-column flex-nowrap text-lg font-bold shadow-2xl shadow-primary-500/30 hover:shadow-primary-500/50"
                 >
-                  <Rocket className="mr-3 w-6 h-6" />
+    
                   Iniciar Jornada
-                  <ArrowRight className="ml-3 w-6 h-6" />
                 </Button>
               </motion.div>
             </div>

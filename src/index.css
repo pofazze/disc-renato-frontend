@@ -96,7 +96,7 @@
   }
   
   .step-content {
-    @apply flex-1 overflow-y-auto p-4 flex items-center justify-center;
+    @apply flex-1 p-4 flex items-center justify-center;
   }
   
   /* CORREÇÃO 3: Select customizado com fundo escuro */

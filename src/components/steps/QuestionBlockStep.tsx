@@ -82,7 +82,7 @@ export const QuestionBlockStep: React.FC<QuestionBlockStepProps> = ({ blockNumbe
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -30 }}
         >
-          <Card padding="lg" className="max-h-screen-safe overflow-y-auto custom-scrollbar">
+          <Card padding="lg" className="max-h-screen-safe  custom-scrollbar">
             <div className="mb-8">
               <h1 className="text-2xl font-bold text-white mb-4">
                 Bloco {blockNumber}

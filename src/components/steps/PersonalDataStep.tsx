@@ -80,7 +80,7 @@ export const PersonalDataStep: React.FC = () => {
         exit={{ opacity: 0, x: -30 }}
         className="max-w-md w-full"
       >
-        <Card variant="glow" padding="lg" className="max-h-screen-safe overflow-y-auto custom-scrollbar">
+        <Card variant="glow" padding="lg" className="max-h-screen-safe custom-scrollbar">
           {/* Header */}
           <div className="text-center mb-8">
             <motion.div 

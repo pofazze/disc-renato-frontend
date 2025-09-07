@@ -113,7 +113,7 @@ export const ReviewStep: React.FC = () => {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: 'auto' }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="mt-4 space-y-1 text-xs text-slate-400 max-h-40 overflow-y-auto"
+                  className="mt-4 space-y-1 text-xs text-slate-400 max-h-40"
                 >
                   {answers.map(answer => (
                     <div key={answer.blockId} className="flex justify-between">
